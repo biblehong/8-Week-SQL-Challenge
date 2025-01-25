@@ -6,3 +6,10 @@
 > Dataset and images are all sourced from [8 Week SQL Challenge](https://8weeksqlchallenge.com/)
 
 ## Introduction
+## Table Relationship
+
+<img src="https://github.com/user-attachments/assets/f0d5851e-9443-42ac-851d-ba7c08e7e062" alt="Case Study #2: Pizza Runner" width="600" height="300">
+
+
+
+## Business Questions
