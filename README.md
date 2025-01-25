@@ -1,4 +1,4 @@
-# 8-Week SQL Challenge
+# 📅 8-Week SQL Challenge
 
 This is a series of SQL case studies that showcases SQL querying abilities and problem-solving. 
 
