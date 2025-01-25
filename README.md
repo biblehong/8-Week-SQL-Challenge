@@ -8,7 +8,7 @@ Big thanks to [Data with Danny](https://www.linkedin.com/company/datawithdanny/)
 
 ## Links to each case study
 - [Case Study #1 : Danny's Dinner](https://github.com/biblehong/8-Week-SQL-Challenge/blob/main/Case%20Study%20%231%20%3A%20Danny's%20Diner.md)
-- Case Study #2 : Pizza Runner
+- [Case Study #2 : Pizza Runner](https://github.com/biblehong/8-Week-SQL-Challenge/blob/main/Case%20Study%20%232%20%3A%20Pizza%20Runner.md)
 - Case Study #3 : Foodie-Fi
 - Case Study #4 : Data Bank
 - Case Study #5 : Data Mart
