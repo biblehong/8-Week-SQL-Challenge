@@ -288,5 +288,8 @@ Danny has opened his new restaurant and wants to understand the data about his c
     - Assuming "first week" is 7 days from membership date (join date included), Customer A has accumulated more points because all his purchases were within 7 days from join date while Customer B only had 1 purchase qualified for the double points.
 
 ## Conclusion 
+Ramen is the most popular item on the menu. Among the 3 customers, Customer B can be considered as the most loyal customer due to 2 reasons:
+   - He/She paid the most number of visits to the restaurant.
+   - He/She consistently comes back to the restaurant with the latest visit being on Feb 1, 2021.
 
-Ramen seems to be the popular choice for members.
+Sales on sushi is low hence the double point system on this food item for members can potentially boost sales. Customer C has yet to sign up as a member and has only tried ramen so far. A free taste kiosk on the food items can help attract existing/new customers to try other items on the menu.
