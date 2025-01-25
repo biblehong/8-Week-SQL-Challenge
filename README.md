@@ -2,7 +2,7 @@
 
 This is a series of SQL case studies that showcases SQL querying abilities and problem-solving. 
 
-Original Data Source: [Data with Danny](https://8weeksqlchallenge.com/)
+Original dataset is sourced from [Data with Danny](https://8weeksqlchallenge.com/)
 
 ## Links to each case study
 - Case Study #1 : Danny's Dinner
