@@ -248,7 +248,7 @@ Danny has opened his new restaurant and wants to understand the data about his c
    | B           | 440          |
 
    $${\color{lightgreen}Quick \space Insight}$$
-   - Assuming purchases made on the same day as the membership date are included, Customer A has accumulated more points as he has purchased an item on the same day he became a member.
+   - Assuming points are awarded only to members and purchases made on the same day as the membership date are included, Customer A has accumulated more points as he has purchased an item on the same day he became a member.
      
 10. In the first week after a customer joins the program (including their join date) they earn 2x points on all items, not just sushi - how many points do customer A and B have at the end of January?
     ```
@@ -284,8 +284,9 @@ Danny has opened his new restaurant and wants to understand the data about his c
     | A           | 1020         |
     | B           | 320          |
 
-   $${\color{lightgreen}Quick \space Insight}$$
-   - Assuming "first week" is 7 days from membership date (join date included), Customer A has accumulated more points because all his purchases were within 7 days from join date while Customer B only had 1 purchase qualified for the double points.
+    $${\color{lightgreen}Quick \space Insight}$$
+    - Assuming "first week" is 7 days from membership date (join date included), Customer A has accumulated more points because all his purchases were within 7 days from join date while Customer B only had 1 purchase qualified for the double points.
 
+## Conclusion 
 
 
