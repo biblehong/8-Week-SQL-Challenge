@@ -1,6 +1,6 @@
 # 📅 8-Week SQL Challenge
 
-This is a series of SQL case studies that showcases SQL querying abilities and problem-solving. 
+This is a series of SQL case studies that showcases SQL querying abilities, problem-solving and critical thinking. 
 
 Original dataset is sourced from [#8WeekSQLChallenge](https://8weeksqlchallenge.com/). 
 
