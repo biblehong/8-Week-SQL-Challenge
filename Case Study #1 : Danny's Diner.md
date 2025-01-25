@@ -13,7 +13,7 @@ Danny has opened his new restaurant and wants to understand the data about his c
 
 ## Business Questions
 1. What is the total amount each customer spent at the restaurant?
-   ```
+   ```sql
    SELECT
      customer_id,
      SUM(price) as total
@@ -33,7 +33,7 @@ Danny has opened his new restaurant and wants to understand the data about his c
    - Customer A made the biggest purchase in terms of amount.
    
 2. How many days has each customer visited the restaurant?
-   ```
+   ```sql
    SELECT
      customer_id,
      COUNT(DISTINCT order_date) as no_of_days_visited
@@ -52,7 +52,7 @@ Danny has opened his new restaurant and wants to understand the data about his c
    - Customer B paid the most visits to the restaurant.
 
 3. What was the first item from the menu purchased by each customer?
-   ```
+   ```sql
    WITH first_product as (
    SELECT
      s.customer_id,
@@ -80,7 +80,7 @@ Danny has opened his new restaurant and wants to understand the data about his c
    - Customer A purchased 2 items on his/her first visit to the restaurant while Customers B and C purchased 1 item each.
 
 4. What is the most purchased item on the menu and how many times was it purchased by all customers?
-    ```
+    ```sql
     SELECT 
       m.product_name,
       COUNT(s.product_id) as purchase_cnt
@@ -100,7 +100,7 @@ Danny has opened his new restaurant and wants to understand the data about his c
    - Ramen is the most popular dish on the menu, purchased by customers 8 times.
      
 5. Which item was the most popular for each customer?
-   ```
+   ```sql
    WITH popular AS (
    SELECT
      s.customer_id,
@@ -129,7 +129,7 @@ Danny has opened his new restaurant and wants to understand the data about his c
    - Ramen seems to be the most popular dish with all the customers. 
    
 6. Which item was purchased first by the customer after they became a member?
-   ```
+   ```sql
    WITH member_purchase AS (
    SELECT
      s.customer_id,
@@ -157,7 +157,7 @@ Danny has opened his new restaurant and wants to understand the data about his c
    - Assuming purchases made on the same day as the membership date are included, curry was the first item purchased by Customer A and sushi for Customer B after they became a member.
      
 7. Which item was purchased just before the customer became a member?
-   ```
+   ```sql
    WITH nonmember_purchase AS (
    SELECT
      s.customer_id,
@@ -189,7 +189,7 @@ Danny has opened his new restaurant and wants to understand the data about his c
    - These were the last items purchased by these customers right before they became members.
    
 8. What is the total items and amount spent for each member before they became a member?
-   ```
+   ```sql
    WITH nonmember_purchase AS (
    SELECT
      s.customer_id,
@@ -218,7 +218,7 @@ Danny has opened his new restaurant and wants to understand the data about his c
    - Customer A purchased curry and sushi (purchased on the same day) while Customer B purchased curry right before they became members.
    
 9. If each $1 spent equates to 10 points and sushi has a 2x points multiplier - how many points would each customer have?
-   ```
+   ```sql
    WITH member_purchase AS (
    SELECT
      s.customer_id,
@@ -251,7 +251,7 @@ Danny has opened his new restaurant and wants to understand the data about his c
    - Assuming points are awarded only to members and purchases made on the same day as the membership date are included, Customer A has accumulated more points as he has purchased an item on the same day he became a member.
      
 10. In the first week after a customer joins the program (including their join date) they earn 2x points on all items, not just sushi - how many points do customer A and B have at the end of January?
-    ```
+    ```sql
     WITH member_purchase AS (
     SELECT
       s.customer_id,
@@ -289,4 +289,4 @@ Danny has opened his new restaurant and wants to understand the data about his c
 
 ## Conclusion 
 
-
+Ramen seems to be the popular choice for members.
