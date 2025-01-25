@@ -215,7 +215,7 @@ Danny has opened his new restaurant and wants to understand the data about his c
    | B           | 3                      | 40                    |
 
    $${\color{lightgreen}Quick \space Insight}$$
-   - Customer A purchased curry and sushi (purchased on the same day) while Customer B purchased curry right before they became members.
+   - Customer A bought 2 items (for $25) after becoming a member while Customer B bought 3 (for $40). Considering the data from Question#1, we can conclude that Customer A purchased more items or more expensive food after becoming a member.
    
 9. If each $1 spent equates to 10 points and sushi has a 2x points multiplier - how many points would each customer have?
    ```sql
