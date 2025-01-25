@@ -3,7 +3,7 @@
 <img src="https://github.com/user-attachments/assets/d8c5c831-c5e9-45c8-b558-f5ab15c62fe1" alt="Cast Study #1 : Danny's Diner" width="300" height="300">
 
 > [!NOTE]
-> Dataset and images are all sourced from [8 Week SQL Challenge](https://8weeksqlchallenge.com/)
+> Dataset and images are all sourced from [#8WeekSQLChallenge](https://8weeksqlchallenge.com/)
 
 ## Introduction
 Danny has opened his new restaurant and wants to understand the data about his customers, particularly their visiting patterns, purchases, and food preferences. This analysis will help him deliver a more personalized experience to his customers and help him decide on the campaign approach he needs to use for his business. 
