@@ -30,8 +30,10 @@ Danny wants to expand his Pizza Empire so he decided to Uberize it! He then hire
 ### 1. customer_orders table
 <img src="https://github.com/user-attachments/assets/17322a9b-e3f4-4ad8-bece-6ab63e3c3c2c" alt="Case Study #2: Pizza Runner" width="600" height="300">
 
-Here we can see that 2 columns, exclusions and extras, in the customer_orders table need cleaning. To standardize, I will replace blank and 'null' values with NULL. 
+Here, we can see that 2 columns, exclusions and extras, need cleaning. To standardize, I will replace blank and 'null' values with NULL. 
+
 ```sql
+CREATE TEMP TABLE customer_orders_temp AS
 SELECT
   order_id,
   customer_id,
@@ -46,7 +48,7 @@ SELECT
 FROM customer_orders;
 ```
 
-$${\color{lightgreen}Result}$$
+**Result**
 
 <img src="https://github.com/user-attachments/assets/18b6b3e3-135c-47ac-a5b4-fdb76fd4849d" alt="Case Study #2: Pizza Runner" width="500" height="300">
    
@@ -60,7 +62,8 @@ Here, some columns not only need data cleansing but also data type correction. T
 - Remove 'minutes', 'mins', 'minute' in the duration column and alter the data type to int.
 
 ``` sql
-select
+CREATE TEMP TABLE runner_orders_temp AS
+SELECT
   order_id,
 	runner_id,
 	CASE WHEN pickup_time = 'null' THEN NULL 
@@ -72,25 +75,26 @@ select
  	CASE WHEN duration='null' THEN NULL 
 		ELSE CAST(TRIM(TRIM(TRIM(TRIM(duration,'minutes'),'minute'),'mins')) AS int) 
 		END duration,
-	CASE WHEN cancellation = 'null' THEN NULL 
+	CASE WHEN cancellation = 'null' OR cancellation = '' THEN NULL 
 		ELSE TRIM(cancellation) 
 		END cancellation
-from runner_orders
+FROM runner_orders
 ```
 
-$${\color{lightgreen}Result}$$
+**Result**
 
 <img src="https://github.com/user-attachments/assets/564d37c4-dcf8-4f91-be41-991e978608b2" alt="Case Study #2: Pizza Runner" width="700" height="300">
 
 ## Business Questions
 ### Pizza Metrics
 1. How many pizzas were ordered?
-2. How many unique customer orders were made?
-3. How many successful orders were delivered by each runner?
-4. How many of each type of pizza was delivered?
-5. How many Vegetarian and Meatlovers were ordered by each customer?
-6. What was the maximum number of pizzas delivered in a single order?
-7. For each customer, how many delivered pizzas had at least 1 change and how many had no changes?
-8. How many pizzas were delivered that had both exclusions and extras?
-9. What was the total volume of pizzas ordered for each hour of the day?
-10. What was the volume of orders for each day of the week?
+   
+3. How many unique customer orders were made?
+4. How many successful orders were delivered by each runner?
+5. How many of each type of pizza was delivered?
+6. How many Vegetarian and Meatlovers were ordered by each customer?
+7. What was the maximum number of pizzas delivered in a single order?
+8. For each customer, how many delivered pizzas had at least 1 change and how many had no changes?
+9. How many pizzas were delivered that had both exclusions and extras?
+10. What was the total volume of pizzas ordered for each hour of the day?
+11. What was the volume of orders for each day of the week?
