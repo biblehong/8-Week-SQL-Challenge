@@ -9,7 +9,7 @@
 - [Introduction](#introduction)
 - [Table Relationship](#table-relationship)
 - [Data Cleansing & Preparation](#data-cleansing--preparation)
-  - [customer_orders](#1-customer_orders)
+  - [customer_orders](#1--customer_orders)
   - [runner orders](#2-runner_orders)
 - [Business Questions](#business-questions)
   - [Pizza Metrics](#pizza-metrics)
