@@ -8,7 +8,7 @@
 ## Table of Contents
 - [Introduction](#introduction)
 - [Table Relationship](#table-relationship)
-- [Data Cleansing & Preparation](#data-cleansing-preparation)
+- [Data Cleansing & Preparation](#data-cleansing--preparation)
   - [customer_orders](#1-customer_orders)
   - [runner orders](#2-runner_orders)
 - [Business Questions](#business-questions)
