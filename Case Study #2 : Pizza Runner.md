@@ -6,18 +6,18 @@
 > Dataset and images are all sourced from [#8WeekSQLChallenge](https://8weeksqlchallenge.com/)
 
 ## Table of Contents
-- Introduction
-- Table Relationship
-- Data Cleansing & Preparation
-  - customer_orders
-  - runner orders
-- Business Questions
-  - Pizza Metrics
-  - Runner and Customer Experience
-  - Ingredient Optimization
-  - Pricing and Ratings
-- Conclusion
-- Bonus Questions
+- [Introduction](#introduction)
+- [Table Relationship](#table-relationship)
+- [Data Cleansing & Preparation](#data-cleansing-&-preparation)
+  - [customer_orders](#1.-customer_orders)
+  - [runner orders](#2.-runner_orders)
+- [Business Questions](#business-questions)
+  - [Pizza Metrics](#pizza-metrics)
+  - [Runner and Customer Experience](#runner-and-customer-experience)
+  - [Ingredient Optimization](#ingredient-optimization)
+  - [Pricing and Ratings](#pricing-and-ratings)
+- [Conclusion](#conclusion)
+- [Bonus Questions](#bonus-questions)
 
 ## Introduction
 Danny wants to expand his Pizza Empire so he decided to Uberize it! He then hired "runners" to deliver pizza from his headquarters and understands that data collection is crucial in expanding his business. He now needs help understanding this data and see how he can best leverage it to grow his empire.
