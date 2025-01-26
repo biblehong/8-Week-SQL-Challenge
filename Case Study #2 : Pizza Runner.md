@@ -34,7 +34,7 @@ Here we can see that 2 columns, exclusions and extras, in the customer_orders ta
 ```sql
 SELECT
   order_id,
-	customer_id,
+  customer_id,
 	pizza_id,
 	CASE WHEN exclusions = 'null' THEN NULL
 	ELSE NULLIF(exclusions,'')
@@ -81,7 +81,6 @@ from runner_orders
 $${\color{lightgreen}Result}$$
 
 <img src="https://github.com/user-attachments/assets/564d37c4-dcf8-4f91-be41-991e978608b2" alt="Case Study #2: Pizza Runner" width="700" height="300">
-
 
 ## Business Questions
 ### Pizza Metrics
