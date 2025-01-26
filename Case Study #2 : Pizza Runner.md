@@ -30,8 +30,8 @@ Danny wants to expand his Pizza Empire so he decided to Uberize it! He then hire
 ### 1. customer_orders table
 <img src="https://github.com/user-attachments/assets/17322a9b-e3f4-4ad8-bece-6ab63e3c3c2c" alt="Case Study #2: Pizza Runner" width="600" height="300">
 
-Here we can see that 2 columns in the customer_orders table need cleaning. To standardize, I will replace blank and 'null' values with NULL. 
-```
+Here we can see that 2 columns, exclusions and extras, in the customer_orders table need cleaning. To standardize, I will replace blank and 'null' values with NULL. 
+```sql
 SELECT order_id,
 	customer_id,
 	pizza_id,
@@ -44,6 +44,43 @@ SELECT order_id,
 	order_time
 FROM customer_orders;
 ```
+$${\color{lightgreen}Result}
+
+$${\color{lightgreen}Result}$$
+
+<img src="https://github.com/user-attachments/assets/18b6b3e3-135c-47ac-a5b4-fdb76fd4849d" alt="Case Study #2: Pizza Runner" width="500" height="300">
+   
+### 2. runner_orders table
+<img src="https://github.com/user-attachments/assets/01916ea9-a6e2-4810-9676-c0ebd706b5ee" alt="Case Study #2: Pizza Runner" width="700" height="300">
+
+Here, some columns not only need data cleansing but also data type correction. To standardize, we will perform the following steps:
+- Replace 'null' and blank values with NULL in the pickup_time, distance, duration and cancellation columns.
+- Alter the data type of pickup_time to timestamp.
+- Remove 'km' value in the distance column and alter the data type to decimal.
+- Remove 'minutes', 'mins', 'minute' in the duration column and alter the data type to int.
+
+``` sql
+select order_id,
+	runner_id,
+	CASE WHEN pickup_time = 'null' THEN NULL 
+		ELSE CAST(pickup_time AS timestamp) 
+		END pickup_time,
+	CASE WHEN distance = 'null' THEN NULL 
+		ELSE CAST(TRIM(TRIM(distance,'km')) AS decimal(10,2)) 
+		END distance,
+ 	CASE WHEN duration='null' THEN NULL 
+		ELSE CAST(TRIM(TRIM(TRIM(TRIM(duration,'minutes'),'minute'),'mins')) AS int) 
+		END duration,
+	CASE WHEN cancellation = 'null' THEN NULL 
+		ELSE TRIM(cancellation) 
+		END cancellation
+from runner_orders
+```
+
+$${\color{lightgreen}Result}$$
+
+<img src="https://github.com/user-attachments/assets/564d37c4-dcf8-4f91-be41-991e978608b2" alt="Case Study #2: Pizza Runner" width="700" height="300">
+
 
 ## Business Questions
 ### Pizza Metrics
