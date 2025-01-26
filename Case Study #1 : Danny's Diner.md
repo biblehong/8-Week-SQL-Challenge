@@ -22,14 +22,14 @@ Danny has opened his new restaurant and wants to understand the data about his c
    GROUP BY customer_id
    ORDER BY customer_id
    ```
-   $${\color{lightgreen}Result}$$
+   **Result**
     | customer_id | total |
     | ----------- | ----- |
     | A           | 76    |
     | B           | 74    |
     | C           | 36    |
 
-    $${\color{lightgreen}Quick \space Insight}$$
+    **Quick Insight**
    - Customer A made the biggest purchase in terms of amount.
    
 2. How many days has each customer visited the restaurant?
@@ -41,14 +41,14 @@ Danny has opened his new restaurant and wants to understand the data about his c
    GROUP BY customer_id
    ```
 
-   $${\color{lightgreen}Result}$$
+   **Result**
    | customer_id | no_of_days_visited |
    | ----------- | ------------------ |
    | A           | 4                  |
    | B           | 6                  |
    | C           | 2                  |
 
-   $${\color{lightgreen}Quick \space Insight}$$
+   **Quick Insight**
    - Customer B paid the most visits to the restaurant.
 
 3. What was the first item from the menu purchased by each customer?
@@ -68,7 +68,7 @@ Danny has opened his new restaurant and wants to understand the data about his c
    WHERE rnk = 1
    ```
 
-   $${\color{lightgreen}Result}$$
+   **Result**
    | customer_id | product_name |
    | ----------- | ------------ |
    | A           | curry        |
@@ -76,7 +76,7 @@ Danny has opened his new restaurant and wants to understand the data about his c
    | B           | curry        |
    | C           | ramen        |
 
-   $${\color{lightgreen}Quick \space Insight}$$
+   **Quick Insight**
    - Customer A purchased 2 items on his/her first visit to the restaurant while Customers B and C purchased 1 item each.
 
 4. What is the most purchased item on the menu and how many times was it purchased by all customers?
@@ -91,12 +91,12 @@ Danny has opened his new restaurant and wants to understand the data about his c
     LIMIT 1
     ```
     
-    $${\color{lightgreen}Result}$$
+   **Result**
    | product_name | purchase_cnt |
    | ------------ | ------------ |
    | ramen        | 8            |
 
-   $${\color{lightgreen}Quick \space Insight}$$
+   **Quick Insight**
    - Ramen is the most popular dish on the menu, purchased by customers 8 times.
      
 5. Which item was the most popular for each customer?
@@ -116,7 +116,7 @@ Danny has opened his new restaurant and wants to understand the data about his c
    WHERE popular_menu = 1
    ```
    
-   $${\color{lightgreen}Result}$$
+   **Result**
    | customer_id | product_name | 
    | ----------- | ------------ | 
    | A           | ramen        | 
@@ -125,7 +125,7 @@ Danny has opened his new restaurant and wants to understand the data about his c
    | B           | sushi        | 
    | C           | ramen        | 
 
-   $${\color{lightgreen}Quick \space Insight}$$
+   **Quick Insight**
    - Ramen seems to be the most popular dish with all the customers. 
    
 6. Which item was purchased first by the customer after they became a member?
@@ -147,13 +147,13 @@ Danny has opened his new restaurant and wants to understand the data about his c
    WHERE rnk = 1
    ```
    
-   $${\color{lightgreen}Result}$$
+   **Result**
    | customer_id | product_name | 
    | ----------- | ------------ | 
    | A           | curry        | 
    | B           | sushi        | 
 
-   $${\color{lightgreen}Quick \space Insight}$$
+   **Quick Insight**
    - Assuming purchases made on the same day as the membership date are included, curry was the first item purchased by Customer A and sushi for Customer B after they became a member.
      
 7. Which item was purchased just before the customer became a member?
@@ -176,14 +176,14 @@ Danny has opened his new restaurant and wants to understand the data about his c
    ORDER BY customer_id, product_name
    ```
    
-   $${\color{lightgreen}Result}$$
+   **Result**
    | customer_id | product_name | 
    | ----------- | ------------ | 
    | A           | curry        | 
    | A           | sushi        |
    | B           | curry        |  
 
-   $${\color{lightgreen}Quick \space Insight}$$
+   **Quick Insight**
    - Customer A: curry and sushi (purchased on the same day)
    - Customer B: curry
    - These were the last items purchased by these customers right before they became members.
@@ -208,13 +208,13 @@ Danny has opened his new restaurant and wants to understand the data about his c
    GROUP BY customer_id
    ORDER BY customer_id
    ```
-   $${\color{lightgreen}Result}$$
+   **Result**
    | customer_id | nonmember_purchase_cnt | nonmember_total_sales |
    | ----------- | ---------------------- | --------------------- |
    | A           | 2                      | 25                    |
    | B           | 3                      | 40                    |
 
-   $${\color{lightgreen}Quick \space Insight}$$
+   **Quick Insight**
    - Customer A bought 2 items (for $25) after becoming a member while Customer B bought 3 (for $40). Considering the data from Question#1, we can conclude that Customer A purchased more items or more expensive food on the menu after becoming a member.
    
 9. If each $1 spent equates to 10 points and sushi has a 2x points multiplier - how many points would each customer have?
@@ -241,13 +241,13 @@ Danny has opened his new restaurant and wants to understand the data about his c
    ORDER BY customer_id
    ```
 
-   $${\color{lightgreen}Result}$$
+   **Result**
    | customer_id | total_points |
    | ----------- | ------------ |
    | A           | 510          |
    | B           | 440          |
 
-   $${\color{lightgreen}Quick \space Insight}$$
+   **Quick Insight**
    - Assuming points are awarded only to members and purchases made on the same day as the membership date are included, Customer A has accumulated more points as he has purchased an item on the same day he became a member.
      
 10. In the first week after a customer joins the program (including their join date) they earn 2x points on all items, not just sushi - how many points do customer A and B have at the end of January?
@@ -278,13 +278,13 @@ Danny has opened his new restaurant and wants to understand the data about his c
     ORDER BY customer_id
     ```
 
-    $${\color{lightgreen}Result}$$
+    **Result**
     | customer_id | total_points |
     | ----------- | ------------ |
     | A           | 1020         |
     | B           | 320          |
 
-    $${\color{lightgreen}Quick \space Insight}$$
+    **Quick Insight**
     - Assuming "first week" is 7 days from membership date (join date included), Customer A has accumulated more points because all his purchases were within 7 days from join date while Customer B only had 1 purchase qualified for the double points.
 
 ## Conclusion 
