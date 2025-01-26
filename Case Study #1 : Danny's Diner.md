@@ -5,6 +5,13 @@
 > [!NOTE]
 > Dataset and images are all sourced from [#8WeekSQLChallenge](https://8weeksqlchallenge.com/)
 
+## Table of Contents
+- [Introduction](#introduction)
+- [Table Relationship](#table-relationship)
+- [Business Questions](#business-questions)
+- [Conclusion](#conclusion)
+- [Bonus Points](#bonus-points)
+  
 ## Introduction
 Danny has opened his new restaurant and wants to understand the data about his customers, particularly their visiting patterns, purchases, and food preferences. This analysis will help him deliver a more personalized experience to his customers and help him decide on the campaign approach he needs to use for his business. 
 
