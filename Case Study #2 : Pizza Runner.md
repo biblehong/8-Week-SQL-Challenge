@@ -32,7 +32,8 @@ Danny wants to expand his Pizza Empire so he decided to Uberize it! He then hire
 
 Here we can see that 2 columns, exclusions and extras, in the customer_orders table need cleaning. To standardize, I will replace blank and 'null' values with NULL. 
 ```sql
-SELECT order_id,
+SELECT
+  order_id,
 	customer_id,
 	pizza_id,
 	CASE WHEN exclusions = 'null' THEN NULL
@@ -44,7 +45,6 @@ SELECT order_id,
 	order_time
 FROM customer_orders;
 ```
-$${\color{lightgreen}Result}
 
 $${\color{lightgreen}Result}$$
 
@@ -60,7 +60,8 @@ Here, some columns not only need data cleansing but also data type correction. T
 - Remove 'minutes', 'mins', 'minute' in the duration column and alter the data type to int.
 
 ``` sql
-select order_id,
+select
+  order_id,
 	runner_id,
 	CASE WHEN pickup_time = 'null' THEN NULL 
 		ELSE CAST(pickup_time AS timestamp) 
