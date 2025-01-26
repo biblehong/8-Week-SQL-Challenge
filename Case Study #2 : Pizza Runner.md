@@ -120,8 +120,8 @@ FROM runner_orders
    ````
 
    **Result**
-   
-    <img src="https://github.com/user-attachments/assets/06101910-ad1d-4539-9a5f-dc17dd749dea" alt="Case Study #2: Pizza Runner" width="230" height="100">
+
+   <img src="https://github.com/user-attachments/assets/06101910-ad1d-4539-9a5f-dc17dd749dea" alt="Case Study #2: Pizza Runner" width="230" height="100">
 
 4. How many of each type of pizza was delivered?
    ```
@@ -240,3 +240,147 @@ FROM runner_orders
     
     <img src="https://github.com/user-attachments/assets/111206a6-7861-4992-964b-549c8338ae09" alt="Case Study #2: Pizza Runner" width="250" height="100">
 
+### Runner and Customer Experience
+1. How many runners signed up for each 1 week period? (i.e. week starts 2021-01-01)
+   ```sql
+   SELECT
+   CEIL(DATE_PART('day',registration_date)/7) week,
+   COUNT(runner_id)
+   FROM runners
+   GROUP BY week
+   ORDER BY week
+   ```
+   
+   **Result**
+   
+   <img src="https://github.com/user-attachments/assets/08680508-6951-4f11-afac-a42d1df2d593" alt="Case Study #2: Pizza Runner" width="200" height="100">
+
+2. What was the average time in minutes it took for each runner to arrive at the Pizza Runner HQ to pickup the order?
+   ```sql
+   WITH average as (
+   SELECT DISTINCT
+     r.runner_id,
+     c.order_id,
+     (r.pickup_time - c.order_time) as interval_mins
+   FROM customer_orders_temp c
+   JOIN runner_orders_temp r on c.order_id = r.order_id
+   WHERE pickup_time IS NOT NULL
+   )
+   SELECT DISTINCT
+     runner_id,
+     AVG(interval_mins) average_mins
+   FROM average
+   GROUP BY runner_id
+   ```
+   **Result**
+
+   <img src="https://github.com/user-attachments/assets/a721ceae-506a-4768-8a27-3effe00c23a5" alt="Case Study #2: Pizza Runner" width="200" height="100">
+
+3. Is there any relationship between the number of pizzas and how long the order takes to prepare?
+   ```sql
+   WITH prep AS (
+   SELECT
+     c.order_id,
+     COUNT(pizza_id) pizza_cnt,
+     MAX(r.pickup_time - c.order_time) prep_time
+   FROM customer_orders_temp c
+   JOIN runner_orders_temp r ON c.order_id = r.order_id
+   WHERE r.cancellation IS NULL --c.order_time IS NOT NULL
+   GROUP BY c.order_id
+   )
+   SELECT
+     pr.pizza_cnt,
+     AVG(pr.prep_time)
+   FROM prep pr
+   GROUP BY pr.pizza_cnt
+   ```
+   **Result**
+
+   <img src="https://github.com/user-attachments/assets/1d74de23-c648-4015-9a29-ba81489a8dea" alt="Case Study #2: Pizza Runner" width="200" height="100">
+
+4. What was the average distance travelled for each customer?
+   ```sql
+   WITH average as (
+   SELECT DISTINCT c.customer_id, c.order_id, r.distance
+   FROM customer_orders_temp c
+   JOIN runner_orders_temp r on c.order_id = r.order_id
+   WHERE distance IS NOT NULL
+   ORDER BY c.customer_id, c.order_id
+   )
+   SELECT DISTINCT
+     customer_id,
+     ROUND(AVG(distance),2) average_km
+   FROM average
+   GROUP BY customer_id
+   ```
+   
+   **Result**
+
+   <img src="https://github.com/user-attachments/assets/ab2b3656-9495-44ec-a345-5206a5e1ef9f" alt="Case Study #2: Pizza Runner" width="180" height="130">
+
+5. What was the difference between the longest and shortest delivery times for all orders?
+   ```sql
+   SELECT MAX(duration) - MIN(duration) as max_min
+   FROM runner_orders_temp
+   ```
+   
+   **Result**
+
+   <img src="https://github.com/user-attachments/assets/c9a43dc7-fcb8-4468-9ec7-d52a068c6fb3" alt="Case Study #2: Pizza Runner" width="150" height="80">
+
+6. What was the average speed for each runner for each delivery and do you notice any trend for these values?
+   ```sql
+   SELECT
+     runner_id,
+     ROUND(avg(duration),2) avg_duration
+   FROM runner_orders_temp
+   WHERE duration IS NOT NULL
+   GROUP BY runner_id
+   ORDER BY runner_id
+   ```
+   
+   **Result**
+   
+    <img src="https://github.com/user-attachments/assets/96e0a922-25fa-4611-9579-005445ad48c2" alt="Case Study #2: Pizza Runner" width="200" height="100">
+
+7. What is the successful delivery percentage for each runner?
+   ```sql
+   SELECT runner_id, ROUND(SUM(CAST(CASE WHEN cancellation IS NULL THEN 1 ELSE 0 END AS DECIMAL(10,2)))/COUNT(order_id)*100,2)
+   FROM runner_orders_temp
+   GROUP BY runner_id
+   ```
+
+   **Result**
+   
+   <img src="https://github.com/user-attachments/assets/a4d4ee7f-f55b-464b-9254-e1ce844eb8fc" alt="Case Study #2: Pizza Runner" width="180" height="100">
+
+### Ingredient Optimisation
+What are the standard ingredients for each pizza?
+What was the most commonly added extra?
+What was the most common exclusion?
+Generate an order item for each record in the customers_orders table in the format of one of the following:
+Meat Lovers
+Meat Lovers - Exclude Beef
+Meat Lovers - Extra Bacon
+Meat Lovers - Exclude Cheese, Bacon - Extra Mushroom, Peppers
+Generate an alphabetically ordered comma separated ingredient list for each pizza order from the customer_orders table and add a 2x in front of any relevant ingredients
+For example: "Meat Lovers: 2xBacon, Beef, ... , Salami"
+What is the total quantity of each ingredient used in all delivered pizzas sorted by most frequent first?
+
+### Pricing and Ratings
+If a Meat Lovers pizza costs $12 and Vegetarian costs $10 and there were no charges for changes - how much money has Pizza Runner made so far if there are no delivery fees?
+What if there was an additional $1 charge for any pizza extras?
+Add cheese is $1 extra
+The Pizza Runner team now wants to add an additional ratings system that allows customers to rate their runner, how would you design an additional table for this new dataset - generate a schema for this new table and insert your own data for ratings for each successful customer order between 1 to 5.
+Using your newly generated table - can you join all of the information together to form a table which has the following information for successful deliveries?
+customer_id
+order_id
+runner_id
+rating
+order_time
+pickup_time
+Time between order and pickup
+Delivery duration
+Average speed
+Total number of pizzas
+If a Meat Lovers pizza was $12 and Vegetarian $10 fixed prices with no cost for extras and each runner is paid $0.30 per kilometre traveled - how much money does Pizza Runner have left over after these deliveries?
