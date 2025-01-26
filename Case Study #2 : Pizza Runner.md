@@ -124,7 +124,7 @@ FROM runner_orders
    <img src="https://github.com/user-attachments/assets/06101910-ad1d-4539-9a5f-dc17dd749dea" alt="Case Study #2: Pizza Runner" width="230" height="100">
 
 4. How many of each type of pizza was delivered?
-   ```
+   ```sql
    SELECT
      p.pizza_name,
      COUNT(c.order_id) as delivered_cnt
@@ -244,8 +244,8 @@ FROM runner_orders
 1. How many runners signed up for each 1 week period? (i.e. week starts 2021-01-01)
    ```sql
    SELECT
-   CEIL(DATE_PART('day',registration_date)/7) week,
-   COUNT(runner_id)
+     CEIL(DATE_PART('day',registration_date)/7) week,
+     COUNT(runner_id)
    FROM runners
    GROUP BY week
    ORDER BY week
@@ -263,7 +263,7 @@ FROM runner_orders
      c.order_id,
      (r.pickup_time - c.order_time) as interval_mins
    FROM customer_orders_temp c
-   JOIN runner_orders_temp r on c.order_id = r.order_id
+   JOIN runner_orders_temp r ON c.order_id = r.order_id
    WHERE pickup_time IS NOT NULL
    )
    SELECT DISTINCT
@@ -285,7 +285,7 @@ FROM runner_orders
      MAX(r.pickup_time - c.order_time) prep_time
    FROM customer_orders_temp c
    JOIN runner_orders_temp r ON c.order_id = r.order_id
-   WHERE r.cancellation IS NULL --c.order_time IS NOT NULL
+   WHERE r.cancellation IS NULL
    GROUP BY c.order_id
    )
    SELECT
@@ -301,9 +301,12 @@ FROM runner_orders
 4. What was the average distance travelled for each customer?
    ```sql
    WITH average as (
-   SELECT DISTINCT c.customer_id, c.order_id, r.distance
+   SELECT DISTINCT
+     c.customer_id,
+     c.order_id,
+     r.distance
    FROM customer_orders_temp c
-   JOIN runner_orders_temp r on c.order_id = r.order_id
+   JOIN runner_orders_temp r ON c.order_id = r.order_id
    WHERE distance IS NOT NULL
    ORDER BY c.customer_id, c.order_id
    )
@@ -345,7 +348,17 @@ FROM runner_orders
 
 7. What is the successful delivery percentage for each runner?
    ```sql
-   SELECT runner_id, ROUND(SUM(CAST(CASE WHEN cancellation IS NULL THEN 1 ELSE 0 END AS DECIMAL(10,2)))/COUNT(order_id)*100,2)
+   SELECT
+     runner_id,
+     ROUND(
+       SUM(
+         CAST(
+           CASE WHEN cancellation IS NULL THEN 1
+           ELSE 0
+           END
+         AS DECIMAL(10,2)
+           )
+         )/COUNT(order_id)*100,2)
    FROM runner_orders_temp
    GROUP BY runner_id
    ```
