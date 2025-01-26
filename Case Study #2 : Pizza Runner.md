@@ -30,6 +30,20 @@ Danny wants to expand his Pizza Empire so he decided to Uberize it! He then hire
 ### 1. customer_orders table
 <img src="https://github.com/user-attachments/assets/17322a9b-e3f4-4ad8-bece-6ab63e3c3c2c" alt="Case Study #2: Pizza Runner" width="600" height="300">
 
+Here we can see that 2 columns in the customer_orders table need cleaning. To standardize, I will replace blank and 'null' values with NULL. 
+```
+SELECT order_id,
+	customer_id,
+	pizza_id,
+	CASE WHEN exclusions = 'null' THEN NULL
+	ELSE NULLIF(exclusions,'')
+	END exclusions,
+	CASE WHEN extras = 'null' THEN NULL
+	ELSE NULLIF(extras,'')
+	END extras,
+	order_time
+FROM customer_orders;
+```
 
 ## Business Questions
 ### Pizza Metrics
