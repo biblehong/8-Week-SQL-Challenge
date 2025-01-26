@@ -50,7 +50,7 @@ FROM customer_orders;
 
 **Result**
 
-<img src="https://github.com/user-attachments/assets/18b6b3e3-135c-47ac-a5b4-fdb76fd4849d" alt="Case Study #2: Pizza Runner" width="500" height="300">
+<img src="https://github.com/user-attachments/assets/18b6b3e3-135c-47ac-a5b4-fdb76fd4849d" alt="Case Study #2: Pizza Runner" width="550" height="300">
    
 ### 2. runner_orders table
 <img src="https://github.com/user-attachments/assets/01916ea9-a6e2-4810-9676-c0ebd706b5ee" alt="Case Study #2: Pizza Runner" width="700" height="300">
@@ -83,7 +83,7 @@ FROM runner_orders
 
 **Result**
 
-<img src="https://github.com/user-attachments/assets/564d37c4-dcf8-4f91-be41-991e978608b2" alt="Case Study #2: Pizza Runner" width="700" height="300">
+<img src="https://github.com/user-attachments/assets/e25d679b-77c9-43f4-8c5e-afe6e65ed7b0" alt="Case Study #2: Pizza Runner" width="700" height="300">
 
 ## Business Questions
 ### Pizza Metrics
