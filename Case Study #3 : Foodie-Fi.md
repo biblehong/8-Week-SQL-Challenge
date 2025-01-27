@@ -307,7 +307,7 @@ ORDER BY customer_id, start_date;
 
     **Result**
 
-    <img src="https://github.com/user-attachments/assets/c21853b4-aa2e-43a9-84c5-2281e2c30918" alt="Case Study #3: Foodie-Fi" width="250" height="300">
+    <img src="https://github.com/user-attachments/assets/c21853b4-aa2e-43a9-84c5-2281e2c30918" alt="Case Study #3: Foodie-Fi" width="280" height="300">
 
 11. How many customers downgraded from a pro monthly to a basic monthly plan in 2020?
     ```sql
