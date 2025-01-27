@@ -126,7 +126,7 @@ FROM runner_orders
 
    <img src="https://github.com/user-attachments/assets/06101910-ad1d-4539-9a5f-dc17dd749dea" alt="Case Study #2: Pizza Runner" width="230" height="100">
 
-   - Runner 1 made the most deliveries with 4 completed orders followed by runner 2 with 3 and runner 3 with 1
+   - Runner 1 made the most deliveries with 4 completed orders followed by runner 2 with 3 and runner 3 with 1.
 
 4. How many of each type of pizza was delivered?
    ```sql
@@ -179,7 +179,7 @@ FROM runner_orders
    
     <img src="https://github.com/user-attachments/assets/7b02ac07-3b58-43bd-a9de-062744cba92c" alt="Case Study #2: Pizza Runner" width="230" height="70">
 
-    - Most pizza ordered in a single order was with order id 4
+    - Most pizza ordered in a single order was with order id 4.
 
 7. For each customer, how many delivered pizzas had at least 1 change and how many had no changes?
     ```sql
@@ -204,7 +204,7 @@ FROM runner_orders
    
     <img src="https://github.com/user-attachments/assets/054f7755-0b59-4f72-82aa-255655243bc5" alt="Case Study #2: Pizza Runner" width="330" height="150">
 
-    - There were equal number of pizzas ordered with change and no change among the customers
+    - There were equal number of pizzas ordered with change and no change among the customers.
     
 8. How many pizzas were delivered that had both exclusions and extras?
     ```sql
@@ -222,7 +222,7 @@ FROM runner_orders
    
     <img src="https://github.com/user-attachments/assets/3e8e0423-3ef2-4786-9110-ecf7d61bd159" alt="Case Study #2: Pizza Runner" width="130" height="70">
 
-    - Only 1 pizza order had both exclusion and extra
+    - Only 1 pizza order had both exclusion and extra.
 
 9. What was the total volume of pizzas ordered for each hour of the day?
     ```sql
@@ -238,7 +238,7 @@ FROM runner_orders
    
     <img src="https://github.com/user-attachments/assets/c8bcf3ed-62c8-4a86-9598-97c613e30d37" alt="Case Study #2: Pizza Runner" width="200" height="150">
 
-    - Pizza order peaked during the afternoon between 1pm - 6pm and late night between 9pm - 11pm 
+    - Pizza order peaked during the afternoon between 1pm - 6pm and late night between 9pm - 11pm.
 
 10. What was the volume of orders for each day of the week?
     ```sql
