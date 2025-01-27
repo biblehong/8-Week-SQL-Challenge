@@ -387,7 +387,7 @@ FROM runner_orders
 
    **Result**
 
-   <img src="https://github.com/user-attachments/assets/a74886ba-645f-4fde-9c97-2cbd86b6ba93" alt="Case Study #2: Pizza Runner" width="250" height="100">
+   <img src="https://github.com/user-attachments/assets/a74886ba-645f-4fde-9c97-2cbd86b6ba93" alt="Case Study #2: Pizza Runner" width="250" height="80">
 
 2. What was the most commonly added extra?
    ```sql
@@ -409,7 +409,7 @@ FROM runner_orders
 
    **Result**
 
-   <img src="https://github.com/user-attachments/assets/ee6ec959-3681-436f-a105-932bde9853f4" alt="Case Study #2: Pizza Runner" width="270" height="100">
+   <img src="https://github.com/user-attachments/assets/ee6ec959-3681-436f-a105-932bde9853f4" alt="Case Study #2: Pizza Runner" width="270" height="80">
 
 3. What was the most common exclusion?
    ```sql
@@ -431,7 +431,7 @@ FROM runner_orders
 
    **Result**
    
-   <img src="https://github.com/user-attachments/assets/30ecfd4e-ec4a-4e59-ac86-3d727aef7ae0" alt="Case Study #2: Pizza Runner" width="270" height="100">
+   <img src="https://github.com/user-attachments/assets/30ecfd4e-ec4a-4e59-ac86-3d727aef7ae0" alt="Case Study #2: Pizza Runner" width="270" height="80">
 
 4. Generate an order item for each record in the customers_orders table in the format of one of the following:
    - Meat Lovers
