@@ -119,6 +119,8 @@ ORDER BY customer_id, start_date;
    **Result**
 
    <img src="https://github.com/user-attachments/assets/c7995923-03f5-4ded-ae53-9e75fa73f0c9" alt="Case Study #3: Foodie-Fi" width="300" height="80">
+
+   - 307 customers churned which is 30.7% of Foodie-Fi's customer database.
    
 5. How many customers have churned straight after their initial free trial - what percentage is this rounded to the nearest whole number?
     ```sql
@@ -145,6 +147,8 @@ ORDER BY customer_id, start_date;
    **Result**
 
    <img src="https://github.com/user-attachments/assets/63fb9560-ad09-4ac7-a239-5edfdf5896dd" alt="Case Study #3: Foodie-Fi" width="300" height="60">
+
+   - 92 customers churned right after their trial which is 9% of Foodie-Fi's customer database.
    
 6. What is the number and percentage of customer plans after their initial free trial?
     ```sql
@@ -179,6 +183,8 @@ ORDER BY customer_id, start_date;
 
     <img src="https://github.com/user-attachments/assets/4419e8be-269e-4055-be91-4996476c7cdd" alt="Case Study #3: Foodie-Fi" width="380" height="110">
 
+    - more than half of the customers (54.6%) chose to the basic plan for their first paid plan. This could indicate that customers are testing whether the basic plan can cover enough navigation on the streaming site before opting for a much higher subscription.
+
 7. What is the customer count and percentage breakdown of all 5 plan_name values at 2020-12-31?
     ```sql
     WITH plan AS (
@@ -212,6 +218,8 @@ ORDER BY customer_id, start_date;
 
     <img src="https://github.com/user-attachments/assets/bf3509b3-abe4-4bec-a941-92a5354654cd" alt="Case Study #3: Foodie-Fi" width="380" height="130">
 
+    - As of Dec 31, 2020, we can see a more even distribution on the subscription plans but with an alarming high churn rate of 23.6%
+
 8. How many customers have upgraded to an annual plan in 2020?
     ```sql
     WITH annual_plan AS (
@@ -235,6 +243,8 @@ ORDER BY customer_id, start_date;
     **Result**
     
     <img src="https://github.com/user-attachments/assets/004d34b1-9b21-4b15-9c77-420d4da5e821" alt="Case Study #3: Foodie-Fi" width="150" height="80">
+
+     - 195 customers upgraded to an annual plan in 2020. 
 
 9. How many days on average does it take for a customer to an annual plan from the day they join Foodie-Fi?
     ```sql
@@ -262,6 +272,8 @@ ORDER BY customer_id, start_date;
     **Result**
     
     <img src="https://github.com/user-attachments/assets/8d9a6379-977b-422d-8a3c-0e9553c55d3e" alt="Case Study #3: Foodie-Fi" width="180" height="80">
+
+    - it takes an average of 105 days before a customer upgrades to an annual plan.
     
 10. Can you further breakdown this average value into 30 day periods (i.e. 0-30 days, 31-60 days etc)
     ```sql
@@ -280,20 +292,22 @@ ORDER BY customer_id, start_date;
     SELECT
       *,
       next_plan_start - start_date days_upgrade,
-      WIDTH_BUCKET(next_plan_start - start_date,1,360,12) bucket
-    	FROM avg_upgrade
+      WIDTH_BUCKET(next_plan_start - start_date,1,360,12) bucket_no
+      FROM avg_upgrade
     WHERE next_plan_start IS NOT NULL
     )
-    SELECT bucket,
+    SELECT
+      bucket_no,
+      (bucket_no-1)*30+1 || '-' || bucket_no*30 || ' days' as bucket,
       ROUND(AVG(next_plan_start - start_date),0) average_days
     FROM bucket
-    GROUP BY bucket
-    ORDER BY bucket, average_days
+    GROUP BY bucket_no, bucket
+    ORDER BY bucket_no
     ```
 
     **Result**
-    
-    <img src="https://github.com/user-attachments/assets/a6673a48-b502-4ad5-afa1-d6af5114d5fe" alt="Case Study #3: Foodie-Fi" width="200" height="300">
+
+    <img src="https://github.com/user-attachments/assets/c21853b4-aa2e-43a9-84c5-2281e2c30918" alt="Case Study #3: Foodie-Fi" width="250" height="300">
 
 11. How many customers downgraded from a pro monthly to a basic monthly plan in 2020?
     ```sql
