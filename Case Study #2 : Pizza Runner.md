@@ -659,7 +659,7 @@ FROM runner_orders
 
     <img src="https://github.com/user-attachments/assets/1744af8f-cf9a-475e-9f47-1a25dc65d225" alt="Case Study #2: Pizza Runner" width="150" height="80">
 
-    - 
+    - Total Sales is $160. 
 
 2. What if there was an additional $1 charge for any pizza extras?
    - Add cheese is $1 extra
@@ -680,6 +680,8 @@ FROM runner_orders
      **Result**
 
      <img src="https://github.com/user-attachments/assets/12557f0b-a380-4ddb-99d6-e220475c45b9" alt="Case Study #2: Pizza Runner" width="150" height="80">
+
+     - No significant change in the total sales as there was only 1 order has an add-on request for cheese. Charging extra for Bacon would increase the revenue. 
 
 3. The Pizza Runner team now wants to add an additional ratings system that allows customers to rate their runner, how would you design an additional table for this new dataset - generate a schema for this new table and insert your own data for ratings for each successful customer order between 1 to 5.
    ```sql
@@ -751,7 +753,8 @@ FROM runner_orders
      
      <img src="https://github.com/user-attachments/assets/8ae60328-17b8-4aaa-8cfa-2c009f1221e5" alt="Case Study #2: Pizza Runner" width="1200" height="200">
      
-5. If a Meat Lovers pizza was $12 and Vegetarian $10 fixed prices with no cost for extras and each runner is paid $0.30 per kilometre traveled - how much money does Pizza Runner have left over after these deliveries?
+5. If a Meat Lovers pizza was $12 and Vegetarian $10 fixed prices with no cost for extras and each runner is paid $0.30 per kilometre traveled
+   - how much money does Pizza Runner have left over after these deliveries?
    ```
    WITH sales AS (
    SELECT
@@ -774,5 +777,17 @@ FROM runner_orders
    
    <img src="https://github.com/user-attachments/assets/997de784-09e2-4f81-8fb0-9618941652ca" alt="Case Study #2: Pizza Runner" width="150" height="80">
 
+   - Pizza Runner would have an ending net revenue of $94.44. Assuming that Danny does not charge for extra toppings and excluding the cost of the ingredients, his pizza restaurant would be making 59% profit margin. This will of course further reduce once he takes the ingredient costs into consideration.
+  
 ## Conclusion
+Best sales are observed during Wednesday and Friday, during afternoon 1pm-6pm and late evening 9pm - 11pm. Danny should ensure that there are enough runners to accommodate deliveries during these periods.
 
+Runner 1 has the overall best performance in terms of pickup time, delivery time and percentage of successful delivery. Runner 3 is the fastest among all the runners but was only able to deliver 50% of the orders assigned to him. Danny should review runner 2's performance as he is lacking in all the areas. 
+
+Bacon is the most requested add-on. Danny should keep an eye on this ingredient's inventory and consider adding an add-on charge for this ingredient to increase the revenue. 
+
+Runner fee is too expensive for single-pizza orders delivered to a great distance location. Danny should consider the following: 
+1. Narrowing down his delivery area.
+2. Imposing a minumum number of pizzas in a single order for locations farther than 10km.
+3. Running a campaign such as a self-collect discount to reduce operating costs.
+4. Consider having runners deliver multiple orders around the same location. 
