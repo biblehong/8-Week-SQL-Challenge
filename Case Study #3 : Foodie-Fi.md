@@ -63,7 +63,8 @@ ORDER BY customer_id, start_date;
    ```
 
    **Result**
-   ![image](https://github.com/user-attachments/assets/a301742c-849c-4485-955b-024424aa94c2)
+
+   <img src="https://github.com/user-attachments/assets/a301742c-849c-4485-955b-024424aa94c2" alt="Case Study #3: Foodie-Fi" width="130" height="60">
 
    - Foodie-Fi has a total of 1,000 customers since it started.
 
@@ -79,7 +80,8 @@ ORDER BY customer_id, start_date;
    ```
 
    **Result**
-   ![image](https://github.com/user-attachments/assets/7a755cb3-83a5-4569-acb0-02bce9a13718)
+   
+   <img src="https://github.com/user-attachments/assets/7a755cb3-83a5-4569-acb0-02bce9a13718" alt="Case Study #3: Foodie-Fi" width="250" height="280">
 
    - March had the highest number of trial subscriptions with February being the lowest (less number of days in February potentially affected this number)
      
@@ -97,8 +99,9 @@ ORDER BY customer_id, start_date;
    ```
 
    **Result**
-   ![image](https://github.com/user-attachments/assets/9f9f8f32-36ec-4761-a979-3a3ab1ec1473)
 
+   <img src="https://github.com/user-attachments/assets/9f9f8f32-36ec-4761-a979-3a3ab1ec1473" alt="Case Study #3: Foodie-Fi" width="280" height="100">
+   
    - As observed in the result, there is a high churn count of customers after 2021. 
 
 4. What is the customer count and percentage of customers who have churned rounded to 1 decimal place?
@@ -115,9 +118,9 @@ ORDER BY customer_id, start_date;
 
    **Result**
 
-   ![image](https://github.com/user-attachments/assets/c7995923-03f5-4ded-ae53-9e75fa73f0c9)
-
-9. How many customers have churned straight after their initial free trial - what percentage is this rounded to the nearest whole number?
+   <img src="https://github.com/user-attachments/assets/c7995923-03f5-4ded-ae53-9e75fa73f0c9" alt="Case Study #3: Foodie-Fi" width="300" height="80">
+   
+5. How many customers have churned straight after their initial free trial - what percentage is this rounded to the nearest whole number?
     ```sql
     WITH churn AS(
     SELECT
@@ -139,105 +142,167 @@ ORDER BY customer_id, start_date;
     FROM churn
     ```
 
-    **Result**
-   ![image](https://github.com/user-attachments/assets/63fb9560-ad09-4ac7-a239-5edfdf5896dd)
+   **Result**
 
-
-11. What is the number and percentage of customer plans after their initial free trial?
+   <img src="https://github.com/user-attachments/assets/63fb9560-ad09-4ac7-a239-5edfdf5896dd" alt="Case Study #3: Foodie-Fi" width="300" height="60">
+   
+6. What is the number and percentage of customer plans after their initial free trial?
     ```sql
     WITH first_paid_plan AS (
-    SELECT s.customer_id, p.plan_id, p.plan_name, ROW_NUMBER() OVER(PARTITION BY s.customer_id ORDER BY s.start_date) rownum
+    SELECT
+      s.customer_id,
+      p.plan_id,
+      p.plan_name,
+      ROW_NUMBER() OVER(PARTITION BY s.customer_id ORDER BY s.start_date) rownum
     FROM foodie_fi.subscriptions s
     JOIN foodie_fi.plans p ON s.plan_id = p.plan_id
     WHERE p.plan_name <> 'trial'
     )
-    SELECT plan_id, plan_name, COUNT(customer_id) plan_cnt, 
-    	ROUND(COUNT(customer_id)::decimal(10,2)/(SELECT COUNT(DISTINCT customer_id) FROM foodie_fi.subscriptions)*100,2) plan_percentage
+    SELECT
+      plan_id,
+      plan_name,
+      COUNT(customer_id) plan_cnt, 
+    	ROUND(
+        COUNT(customer_id)::decimal(10,2)/
+        (
+        SELECT
+          COUNT(DISTINCT customer_id)
+        FROM foodie_fi.subscriptions
+        )
+      *100,2) plan_percentage
     FROM first_paid_plan
     WHERE rownum = 1
     GROUP BY plan_id, plan_name
     ```
 
-**Result**
-![image](https://github.com/user-attachments/assets/4419e8be-269e-4055-be91-4996476c7cdd)
+    **Result**
 
-13. What is the customer count and percentage breakdown of all 5 plan_name values at 2020-12-31?
+    <img src="https://github.com/user-attachments/assets/4419e8be-269e-4055-be91-4996476c7cdd" alt="Case Study #3: Foodie-Fi" width="380" height="110">
+
+7. What is the customer count and percentage breakdown of all 5 plan_name values at 2020-12-31?
     ```sql
     WITH plan AS (
-    SELECT s.customer_id, p.plan_id, p.plan_name, ROW_NUMBER() OVER(PARTITION BY s.customer_id ORDER BY s.start_date DESC) rownum
+    SELECT
+      s.customer_id,
+      p.plan_id,
+      p.plan_name,
+      ROW_NUMBER() OVER(PARTITION BY s.customer_id ORDER BY s.start_date DESC) rownum
     FROM foodie_fi.subscriptions s
     JOIN foodie_fi.plans p ON s.plan_id = p.plan_id
     WHERE start_date <= '2020-12-31'
     )
-    SELECT plan_id, plan_name, COUNT(customer_id) plan_cnt, 
-    	ROUND(COUNT(customer_id)::decimal(10,2)/(SELECT COUNT(DISTINCT customer_id) FROM foodie_fi.subscriptions)*100,2) plan_percentage
+    SELECT
+      plan_id,
+      plan_name,
+      COUNT(customer_id) plan_cnt, 
+    	ROUND(
+        COUNT(customer_id)::decimal(10,2)/
+        (
+        SELECT
+          COUNT(DISTINCT customer_id)
+        FROM foodie_fi.subscriptions
+        )
+      *100,2) plan_percentage
     FROM plan
     WHERE rownum = 1
     GROUP BY plan_id, plan_name
     ```
 
-**Result**
+    **Result**
 
-![image](https://github.com/user-attachments/assets/bf3509b3-abe4-4bec-a941-92a5354654cd)
+    <img src="https://github.com/user-attachments/assets/bf3509b3-abe4-4bec-a941-92a5354654cd" alt="Case Study #3: Foodie-Fi" width="380" height="130">
 
-15. How many customers have upgraded to an annual plan in 2020?
+8. How many customers have upgraded to an annual plan in 2020?
     ```sql
     WITH annual_plan AS (
-    SELECT s.customer_id, p.plan_id, p.plan_name, ROW_NUMBER() OVER(PARTITION BY s.customer_id ORDER BY s.start_date DESC) rownum
+    SELECT
+      s.customer_id,
+      p.plan_id,
+      p.plan_name,
+      ROW_NUMBER() OVER(PARTITION BY s.customer_id ORDER BY s.start_date DESC) rownum
     FROM foodie_fi.subscriptions s
     JOIN foodie_fi.plans p ON s.plan_id = p.plan_id
     WHERE start_date <= '2020-12-31'
     )
-    SELECT COUNT(customer_id) plan_cnt
-    	FROM annual_plan
+    SELECT
+      COUNT(customer_id) plan_cnt
+    FROM annual_plan
     WHERE rownum = 1
     AND plan_name = 'pro annual'
     GROUP BY plan_id, plan_name
     ```
 
     **Result**
-    ![image](https://github.com/user-attachments/assets/004d34b1-9b21-4b15-9c77-420d4da5e821)
+    
+    <img src="https://github.com/user-attachments/assets/004d34b1-9b21-4b15-9c77-420d4da5e821" alt="Case Study #3: Foodie-Fi" width="150" height="80">
 
-17. How many days on average does it take for a customer to an annual plan from the day they join Foodie-Fi?
+9. How many days on average does it take for a customer to an annual plan from the day they join Foodie-Fi?
     ```sql
     WITH avg_upgrade AS (
-    SELECT s.customer_id, p.plan_id, p.plan_name, start_date, LEAD(s.start_date) OVER(PARTITION BY s.customer_id ORDER BY s.start_date) next_plan_start
+    SELECT
+      s.customer_id,
+      p.plan_id,
+      p.plan_name,
+      start_date,
+      LEAD(s.start_date) OVER(PARTITION BY s.customer_id ORDER BY s.start_date) next_plan_start
     FROM foodie_fi.subscriptions s
     JOIN foodie_fi.plans p ON s.plan_id = p.plan_id
     WHERE p.plan_name IN ('trial','pro annual')
-    )
-    SELECT ROUND(AVG(next_plan_start - start_date),0) average_upgrade
-    	FROM avg_upgrade
+    ),
+    filter AS ( 
+    SELECT *
+    FROM avg_upgrade
     WHERE next_plan_start IS NOT NULL
+    )
+    SELECT
+      ROUND(AVG(next_plan_start - start_date),0) average_upgrade
+    FROM filter
     ```
 
     **Result**
-    ![image](https://github.com/user-attachments/assets/8d9a6379-977b-422d-8a3c-0e9553c55d3e)
-
     
-19. Can you further breakdown this average value into 30 day periods (i.e. 0-30 days, 31-60 days etc)
+    <img src="https://github.com/user-attachments/assets/8d9a6379-977b-422d-8a3c-0e9553c55d3e" alt="Case Study #3: Foodie-Fi" width="180" height="80">
+    
+10. Can you further breakdown this average value into 30 day periods (i.e. 0-30 days, 31-60 days etc)
     ```sql
-     WITH avg_upgrade AS (
-    SELECT s.customer_id, p.plan_id, p.plan_name, start_date, LEAD(s.start_date) OVER(PARTITION BY s.customer_id ORDER BY s.start_date) next_plan_start
+    WITH avg_upgrade AS (
+    SELECT
+      s.customer_id,
+      p.plan_id,
+      p.plan_name,
+      start_date,
+      LEAD(s.start_date) OVER(PARTITION BY s.customer_id ORDER BY s.start_date) next_plan_start
     FROM foodie_fi.subscriptions s
     JOIN foodie_fi.plans p ON s.plan_id = p.plan_id
     WHERE p.plan_name IN ('trial','pro annual')
-    )
-    SELECT WIDTH_BUCKET(next_plan_start - start_date,1,360,12) bucket, 
-    	ROUND(AVG(next_plan_start - start_date) FILTER (WHERE next_plan_start IS NOT NULL),0) average_days
+    ),
+    bucket as (
+    SELECT
+      *,
+      next_plan_start - start_date days_upgrade,
+      WIDTH_BUCKET(next_plan_start - start_date,1,360,12) bucket
     	FROM avg_upgrade
     WHERE next_plan_start IS NOT NULL
+    )
+    SELECT bucket,
+      ROUND(AVG(next_plan_start - start_date),0) average_days
+    FROM bucket
     GROUP BY bucket
     ORDER BY bucket, average_days
     ```
 
     **Result**
-    ![image](https://github.com/user-attachments/assets/a6673a48-b502-4ad5-afa1-d6af5114d5fe)
+    
+    <img src="https://github.com/user-attachments/assets/a6673a48-b502-4ad5-afa1-d6af5114d5fe" alt="Case Study #3: Foodie-Fi" width="200" height="300">
 
-21. How many customers downgraded from a pro monthly to a basic monthly plan in 2020?
+11. How many customers downgraded from a pro monthly to a basic monthly plan in 2020?
     ```sql
     WITH downgrade AS (
-    SELECT s.customer_id, p.plan_id, p.plan_name, LEAD(p.plan_name) OVER(PARTITION BY s.customer_id ORDER BY s.start_date) downgrade
+    SELECT
+      s.customer_id,
+      p.plan_id,
+      p.plan_name,
+      LEAD(p.plan_name) OVER(PARTITION BY s.customer_id ORDER BY s.start_date) downgrade
     FROM foodie_fi.subscriptions s
     JOIN foodie_fi.plans p ON s.plan_id = p.plan_id
     WHERE p.plan_name IN ('pro monthly','basic monthly')
