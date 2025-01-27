@@ -1,9 +1,6 @@
 # Case Study #3 : Foodie-Fi
 
-<img src="https://github.com/user-attachments/assets/a1292c49-93df-4f1c-a31f-4870c7784c5c" alt="Case Study #2: Pizza Runner" width="300" height="300">
-
-
-
+<img src="https://github.com/user-attachments/assets/9ffb9718-167b-40d6-a78f-4d225b6178a9" alt="Case Study #3: Foodie-Fi" width="300" height="300">
 
 > [!NOTE]
 > Dataset and images are all sourced from [#8WeekSQLChallenge](https://8weeksqlchallenge.com/)
@@ -22,3 +19,4 @@
 - [Conclusion](#conclusion)
 
 ## Introduction
+## Table Relationship
