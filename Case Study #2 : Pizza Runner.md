@@ -367,18 +367,241 @@ FROM runner_orders
    
    <img src="https://github.com/user-attachments/assets/a4d4ee7f-f55b-464b-9254-e1ce844eb8fc" alt="Case Study #2: Pizza Runner" width="180" height="100">
 
-### Ingredient Optimisation
-What are the standard ingredients for each pizza?
-What was the most commonly added extra?
-What was the most common exclusion?
-Generate an order item for each record in the customers_orders table in the format of one of the following:
-Meat Lovers
-Meat Lovers - Exclude Beef
-Meat Lovers - Extra Bacon
-Meat Lovers - Exclude Cheese, Bacon - Extra Mushroom, Peppers
-Generate an alphabetically ordered comma separated ingredient list for each pizza order from the customer_orders table and add a 2x in front of any relevant ingredients
-For example: "Meat Lovers: 2xBacon, Beef, ... , Salami"
-What is the total quantity of each ingredient used in all delivered pizzas sorted by most frequent first?
+### Ingredient Optimization
+1. What are the standard ingredients for each pizza?
+   ```sql
+   WITH recipes AS (
+   SELECT
+     pr.pizza_id,
+     TRIM(string_to_table(toppings,','))::int as topping_id
+   FROM pizza_recipes pr
+   )
+   SELECT
+   pt.topping_name,
+   COUNT(DISTINCT r.pizza_id) AS common_ingredient
+   FROM recipes r
+   JOIN pizza_toppings pt ON r.topping_id = pt.topping_id
+   GROUP BY pt.topping_name
+   HAVING COUNT(DISTINCT r.pizza_id) > 1
+   ```
+
+   **Result**
+
+   <img src="https://github.com/user-attachments/assets/a74886ba-645f-4fde-9c97-2cbd86b6ba93" alt="Case Study #2: Pizza Runner" width="250" height="100">
+
+2. What was the most commonly added extra?
+   ```sql
+   WITH extra_toppings AS (
+   SELECT
+     pizza_id,
+     TRIM(string_to_table(extras ,','))::int AS topping_id
+   FROM customer_orders_temp c
+   )
+   SELECT
+     pt.topping_name,
+     COUNT(ex.pizza_id) extras_cnt
+   FROM extra_toppings ex
+   JOIN pizza_toppings pt on ex.topping_id = pt.topping_id
+   GROUP BY pt.topping_name
+   ORDER BY extras_cnt DESC
+   LIMIT 1
+   ```
+
+   **Result**
+
+   <img src="https://github.com/user-attachments/assets/ee6ec959-3681-436f-a105-932bde9853f4" alt="Case Study #2: Pizza Runner" width="270" height="100">
+
+3. What was the most common exclusion?
+   ```sql
+   WITH excl_toppings AS (
+   SELECT
+     pizza_id,
+     TRIM(string_to_table(exclusions ,','))::int AS topping_id
+   FROM customer_orders_temp c
+   )
+   SELECT
+     pt.topping_name,
+     COUNT(ex.pizza_id) excl_cnt
+   FROM excl_toppings ex
+   JOIN pizza_toppings pt on ex.topping_id = pt.topping_id
+   GROUP BY pt.topping_name
+   ORDER BY excl_cnt DESC
+   LIMIT 1
+   ```
+
+   **Result**
+   
+   <img src="https://github.com/user-attachments/assets/30ecfd4e-ec4a-4e59-ac86-3d727aef7ae0" alt="Case Study #2: Pizza Runner" width="270" height="100">
+
+4. Generate an order item for each record in the customers_orders table in the format of one of the following:
+   - Meat Lovers
+   - Meat Lovers - Exclude Beef
+   - Meat Lovers - Extra Bacon
+   - Meat Lovers - Exclude Cheese, Bacon - Extra Mushroom, Peppers
+
+   ```sql
+   WITH pk as (
+   SELECT
+     c.pizza_id,
+     c.order_id,
+     c.exclusions,
+     c.extras,
+     ROW_NUMBER() OVER(ORDER BY order_id, pizza_id) pk
+   FROM customer_orders_temp c
+   ),
+   excl_split AS (
+   SELECT
+     pk,
+     TRIM(STRING_TO_TABLE(exclusions,', '))::int AS excl
+   FROM pk
+   ),
+   exclusions AS (
+   SELECT
+     ex.pk,
+     'Exclude ' || STRING_AGG(pt.topping_name,', ' ORDER BY pt.topping_name) as excluded
+   FROM excl_split ex
+   JOIN pizza_toppings pt ON pt.topping_id = ex.excl
+   GROUP by ex.pk
+   ),
+   ext_split AS (
+   SELECT
+     pk,
+     TRIM(STRING_TO_TABLE(extras,','))::int AS extr
+   FROM pk
+   ),
+   extras AS (
+   SELECT
+     ext.pk,
+     'Extra ' || STRING_AGG(pt.topping_name,', ' ORDER BY pt.topping_name) as extras
+   FROM ext_split ext
+   JOIN pizza_toppings pt ON pt.topping_id = ext.extr
+   GROUP by ext.pk
+   )
+   SELECT
+     pk.order_id,
+     pn.pizza_name ||
+       CASE WHEN ex.excluded IS NOT NULL THEN ' - ' || ex.excluded
+       ELSE ''
+       END ||
+         CASE WHEN ext.extras IS NOT NULL THEN ' - ' || ext.extras
+         ELSE ''
+         END order_list
+   FROM pk
+   JOIN pizza_names pn on pk.pizza_id = pn.pizza_id
+   LEFT JOIN exclusions ex ON pk.pk = ex.pk
+   LEFT JOIN extras ext ON pk.pk = ext.pk
+   ORDER BY order_id
+   ```
+
+   **Result**
+
+   <img src="https://github.com/user-attachments/assets/0f89818b-02b5-4f36-977c-c4a9e32021e5" alt="Case Study #2: Pizza Runner" width="360" height="300">
+
+6. Generate an alphabetically ordered comma separated ingredient list for each pizza order from the customer_orders table and add a 2x in front of any relevant ingredients
+   - For example: "Meat Lovers: 2xBacon, Beef, ... , Salami"
+   ```sql
+   WITH pk as (
+   SELECT
+     c.pizza_id,
+     c.order_id,
+     c.exclusions,
+     c.extras,
+     ROW_NUMBER() OVER(ORDER BY order_id, pizza_id) pk
+   FROM customer_orders_temp c
+   ),
+   ingr AS(
+   SELECT
+     pk,
+     TRIM(STRING_TO_TABLE(pr.toppings,','))::int AS ingr
+   FROM pk
+   JOIN pizza_recipes pr on pr.pizza_id = pk.pizza_id
+   ),
+   ext_split AS (
+   SELECT
+     pk,
+     TRIM(STRING_TO_TABLE(extras,','))::int AS ingr
+   FROM pk
+   ),
+   excl_split AS (
+   SELECT
+     pk,
+     TRIM(STRING_TO_TABLE(exclusions,', '))::int AS ingr
+   FROM pk
+   ),
+   combined_ingr AS (
+   SELECT
+     pk,
+     ingr,
+     COUNT(ingr) as total_ingr
+   FROM (
+       SELECT * FROM ingr
+         UNION ALL
+       SELECT * FROM ext_split
+         EXCEPT ALL
+       SELECT * FROM excl_split
+     )
+   GROUP BY pk, ingr
+   ),
+   concat_ingr as (
+   SELECT
+     ing.pk,
+     STRING_AGG(
+       CASE WHEN total_ingr > 1 THEN total_ingr || 'x '
+       ELSE '' END ||
+       pt.topping_name, ', '
+     ORDER BY pt.topping_name) as ingredient_list
+   FROM combined_ingr ing
+   JOIN pizza_toppings pt on pt.topping_id = ing.ingr
+   GROUP BY ing.pk
+   ORDER BY pk
+   )
+   SELECT
+     pk.order_id,
+     pn.pizza_name || ' : ' || ci.ingredient_list as order_list
+   FROM pk
+   JOIN pizza_names pn on pk.pizza_id = pn.pizza_id
+   JOIN concat_ingr ci ON pk.pk = ci.pk
+   ORDER BY order_id
+   ```
+
+   **Result**
+
+   <img src="https://github.com/user-attachments/assets/90a79e4f-ed00-4154-b800-19357d279a10" alt="Case Study #2: Pizza Runner" width="430" height="300">
+
+6. What is the total quantity of each ingredient used in all delivered pizzas sorted by most frequent first?
+   ```sql
+   WITH ingr AS(
+   SELECT order_id,
+   TRIM(STRING_TO_TABLE(pr.toppings,','))::int AS ingr
+   FROM customer_orders_temp c
+   JOIN pizza_recipes pr on pr.pizza_id = c.pizza_id
+   ),
+   ext_split AS (
+   SELECT order_id,
+   TRIM(STRING_TO_TABLE(extras,','))::int AS ingr
+   FROM customer_orders_temp
+   ),
+   excl_split AS (
+   SELECT order_id,
+   TRIM(STRING_TO_TABLE(exclusions,', '))::int AS ingr
+   FROM customer_orders_temp
+   )
+   SELECT pt.topping_name, COUNT(ingr) as total_ingr
+   FROM (
+		SELECT * FROM ingr
+			UNION ALL
+		SELECT * FROM ext_split
+		 	EXCEPT ALL
+		SELECT * FROM excl_split
+   ) i
+   JOIN pizza_toppings pt on pt.topping_id = i.ingr
+   GROUP BY pt.topping_name
+   ORDER BY total_ingr DESC
+   ```
+
+   **Result**
+
+   <img src="https://github.com/user-attachments/assets/980194b8-ce6b-4e37-a782-e228ac86b2b4" alt="Case Study #2: Pizza Runner" width="250" height="300">
 
 ### Pricing and Ratings
 If a Meat Lovers pizza costs $12 and Vegetarian costs $10 and there were no charges for changes - how much money has Pizza Runner made so far if there are no delivery fees?
