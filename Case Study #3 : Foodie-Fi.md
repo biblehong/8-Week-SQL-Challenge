@@ -217,13 +217,14 @@ ORDER BY customer_id, start_date;
     
 19. Can you further breakdown this average value into 30 day periods (i.e. 0-30 days, 31-60 days etc)
     ```sql
-    WITH avg_upgrade AS (
+     WITH avg_upgrade AS (
     SELECT s.customer_id, p.plan_id, p.plan_name, start_date, LEAD(s.start_date) OVER(PARTITION BY s.customer_id ORDER BY s.start_date) next_plan_start
     FROM foodie_fi.subscriptions s
     JOIN foodie_fi.plans p ON s.plan_id = p.plan_id
     WHERE p.plan_name IN ('trial','pro annual')
     )
-    SELECT WIDTH_BUCKET(next_plan_start - start_date,1,360,12) bucket, ROUND(AVG(next_plan_start - start_date),0) average_days
+    SELECT WIDTH_BUCKET(next_plan_start - start_date,1,360,12) bucket, 
+    	ROUND(AVG(next_plan_start - start_date) FILTER (WHERE next_plan_start IS NOT NULL),0) average_days
     	FROM avg_upgrade
     WHERE next_plan_start IS NOT NULL
     GROUP BY bucket
@@ -234,6 +235,22 @@ ORDER BY customer_id, start_date;
     ![image](https://github.com/user-attachments/assets/a6673a48-b502-4ad5-afa1-d6af5114d5fe)
 
 21. How many customers downgraded from a pro monthly to a basic monthly plan in 2020?
+    ```sql
+    WITH downgrade AS (
+    SELECT s.customer_id, p.plan_id, p.plan_name, LEAD(p.plan_name) OVER(PARTITION BY s.customer_id ORDER BY s.start_date) downgrade
+    FROM foodie_fi.subscriptions s
+    JOIN foodie_fi.plans p ON s.plan_id = p.plan_id
+    WHERE p.plan_name IN ('pro monthly','basic monthly')
+    AND date_part('year',start_date) = 2020
+    ORDER BY s.customer_id
+    )
+    SELECT COUNT(customer_id)
+    	FROM downgrade
+    WHERE downgrade = 'basic monthly'
+    ```
+
+    **Result**
+    - in 2020, there were no customers who downgraded from pro monthly to basic monthly
 
 ### Challenge Payment Question
 The Foodie-Fi team wants you to create a new payments table for the year 2020 that includes amounts paid by each customer in the subscriptions table with the following requirements:
