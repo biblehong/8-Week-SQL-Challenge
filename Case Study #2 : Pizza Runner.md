@@ -110,7 +110,7 @@ FROM runner_orders
    
    <img src="https://github.com/user-attachments/assets/3754e323-a77e-4245-bb70-eae01fd3166b" alt="Case Study #2: Pizza Runner" width="130" height="70">
 
-   - 10 unique orders were made
+   - 10 unique orders were made.
 
 3. How many successful orders were delivered by each runner?
    ```sql
@@ -126,7 +126,7 @@ FROM runner_orders
 
    <img src="https://github.com/user-attachments/assets/06101910-ad1d-4539-9a5f-dc17dd749dea" alt="Case Study #2: Pizza Runner" width="230" height="100">
 
-   - runner 1 made the most delivery with 4 completed orders followed by runner 2 with 3 and runner 3 with 1
+   - Runner 1 made the most deliveries with 4 completed orders followed by runner 2 with 3 and runner 3 with 1
 
 4. How many of each type of pizza was delivered?
    ```sql
