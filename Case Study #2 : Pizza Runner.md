@@ -601,7 +601,7 @@ FROM runner_orders
 
    **Result**
 
-   <img src="https://github.com/user-attachments/assets/980194b8-ce6b-4e37-a782-e228ac86b2b4" alt="Case Study #2: Pizza Runner" width="250" height="300">
+   <img src="https://github.com/user-attachments/assets/980194b8-ce6b-4e37-a782-e228ac86b2b4" alt="Case Study #2: Pizza Runner" width="200" height="300">
 
 ### Pricing and Ratings
 If a Meat Lovers pizza costs $12 and Vegetarian costs $10 and there were no charges for changes - how much money has Pizza Runner made so far if there are no delivery fees?
