@@ -96,10 +96,36 @@ Danny needs help needs help understanding the data, how to increase their custom
 
 ### Customer Transactions
 1. What is the unique count and total amount for each transaction type?
-2. What is the average total historical deposit counts and amounts for all customers?
-3. For each month - how many Data Bank customers make more than 1 deposit and either 1 purchase or 1 withdrawal in a single month?
-4. What is the closing balance for each customer at the end of the month?
-5. What is the percentage of customers who increase their closing balance by more than 5%?
+   ```sql
+   SELECT
+     txn_type,
+     COUNT(customer_id) txn_cnt,
+     SUM(txn_amount) total_amt
+   FROM data_bank.customer_transactions
+   GROUP BY txn_type
+   ```
+
+   **Result**
+   ![image](https://github.com/user-attachments/assets/f6275169-a3d6-421b-bc67-03ee51364650)
+
+3. What is the average total historical deposit counts and amounts for all customers?
+   ```sql
+   WITH deposit AS(
+   SELECT customer_id, COUNT(customer_id) txn_cnt, AVG(txn_amount) total_amt
+   FROM data_bank.customer_transactions
+   WHERE txn_type = 'deposit'
+   GROUP BY customer_id
+   )
+   SELECT ROUND(AVG(txn_cnt),0) avg_txn, ROUND(AVG(total_amt),2) as avg_amt
+   FROM deposit
+   ```
+
+   **Result**
+   ![image](https://github.com/user-attachments/assets/a9e95e86-8a6a-4cfd-a933-fe6647ada19d)
+
+5. For each month - how many Data Bank customers make more than 1 deposit and either 1 purchase or 1 withdrawal in a single month?
+6. What is the closing balance for each customer at the end of the month?
+7. What is the percentage of customers who increase their closing balance by more than 5%?
 
 ### Data Allocation Challenge
 To test out a few different hypotheses - the Data Bank team wants to run an experiment where different groups of customers would be allocated data using 3 different options:
