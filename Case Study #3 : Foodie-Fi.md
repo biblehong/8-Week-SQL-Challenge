@@ -377,3 +377,10 @@ The Foodie-Fi team wants you to create a new payments table for the year 2020 th
   **Result**
 
   <img src="https://github.com/user-attachments/assets/e8b1ce3b-4f31-4a11-9257-9b9e341b3a04" alt="Case Study #3: Foodie-Fi" width="280" height="500">
+
+## Conclusion
+Foodie-Fi offers a variety of plans that suit customer needs. However, we can see that 9% of the total customers churned immediately after their trial period. This can indicate non-satisfaction in the services of the streaming site, potentially due to several reasons such as content, navigating experience, lack of recommendations, or quality of the media. In addition, an alarming 30.7% of the customers have already churned to date. An exit survey asking about the specific reason for unsubscribing would help the company understand the data better. 
+
+We can observe from the customer behavior that ~50% of the customers opted for the basic plan on their first paid subscription, likely to test whether basic subscription is enough to meet their streaming needs. This is later distributed to other plans with a high percentage of it leading to churn (23%). One good news is that as of 2020-12-31, we haven't seen any customer downgrade their plan back to basic which means that services are satisfactory with the higher plans. 
+
+Overall, Foodie-Fi should revisit their customer churn rate due to its alarming churn rate. In any business, it is always easier to retain customers than to gain new ones. 
