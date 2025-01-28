@@ -12,7 +12,6 @@
   - [Customer Journey](#customer-journey)
   - [Data Analysis Questions](#data-analysis-questions)
   - [Challenge Payment Question](#challenge-payment-question)
-  - [Outside The Box Questions](#outside-the-box-questions)
 - [Conclusion](#conclusion)
 
 ## Introduction
@@ -334,16 +333,47 @@ ORDER BY customer_id, start_date;
 ### Challenge Payment Question
 The Foodie-Fi team wants you to create a new payments table for the year 2020 that includes amounts paid by each customer in the subscriptions table with the following requirements:
 
-monthly payments always occur on the same day of month as the original start_date of any monthly paid plan
-upgrades from basic to monthly or pro plans are reduced by the current paid amount in that month and start immediately
-upgrades from pro monthly to pro annual are paid at the end of the current billing period and also starts at the end of the month period
-once a customer churns they will no longer make payments
+- monthly payments always occur on the same day of month as the original start_date of any monthly paid plan
+- upgrades from basic to monthly or pro plans are reduced by the current paid amount in that month and start immediately
+- upgrades from pro monthly to pro annual are paid at the end of the current billing period and also starts at the end of the month period
+- once a customer churns they will no longer make payments
+  ```sql
+  WITH recursive payment AS (
+  SELECT
+    s.customer_id,
+    p.plan_id,
+    p.plan_name,
+    p.price,
+    s.start_date as payment_date,
+    CASE WHEN lead(s.start_date) OVER(PARTITION BY customer_id ORDER by start_date) IS NULL THEN '2020-12-31'
+	  ELSE lead(s.start_date) OVER(PARTITION BY customer_id ORDER by start_date)
+    END as lead_start_date
+  FROM subscriptions s
+	JOIN plans p ON s.plan_id = p.plan_id
+	WHERE s.start_date <= '2020-12-31'
+	UNION ALL
+	SELECT
+    customer_id,
+    plan_id,
+    plan_name,
+	  price,
+    CASE WHEN plan_name like '%monthly' THEN CAST(payment_date+interval '1 month' AS DATE)
+         WHEN plan_name = 'pro annual' THEN CAST(payment_date + interval '1 year' as DATE)
+  END payment_date,
+	lead_start_date
+	FROM payment
+	WHERE CAST(payment_date+interval '1 month' AS DATE) <= lead_start_date
+	AND plan_name NOT IN ('trial','churn')
+  )
+  SELECT
+    customer_id,
+    plan_id,
+    payment_date,
+    price
+  FROM payment a
+  ORDER BY customer_id, plan_id, payment_date
+  ```
 
-### Outside The Box Questions
-The following are open ended questions which might be asked during a technical interview for this case study - there are no right or wrong answers, but answers that make sense from both a technical and a business perspective make an amazing impression!
+  **Result**
 
-How would you calculate the rate of growth for Foodie-Fi?
-What key metrics would you recommend Foodie-Fi management to track over time to assess performance of their overall business?
-What are some key customer journeys or experiences that you would analyse further to improve customer retention?
-If the Foodie-Fi team were to create an exit survey shown to customers who wish to cancel their subscription, what questions would you include in the survey?
-What business levers could the Foodie-Fi team use to reduce the customer churn rate? How would you validate the effectiveness of your ideas?
+  <img src="https://github.com/user-attachments/assets/e8b1ce3b-4f31-4a11-9257-9b9e341b3a04" alt="Case Study #3: Foodie-Fi" width="280" height="500">
