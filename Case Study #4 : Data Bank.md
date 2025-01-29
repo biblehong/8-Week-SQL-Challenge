@@ -106,7 +106,8 @@ Danny needs help needs help understanding the data, how to increase their custom
    ```
 
    **Result**
-   ![image](https://github.com/user-attachments/assets/f6275169-a3d6-421b-bc67-03ee51364650)
+   
+   <img src="https://github.com/user-attachments/assets/f6275169-a3d6-421b-bc67-03ee51364650" alt="Case Study #4: Data Bank" width="330" height="100">
 
 3. What is the average total historical deposit counts and amounts for all customers?
    ```sql
@@ -121,11 +122,114 @@ Danny needs help needs help understanding the data, how to increase their custom
    ```
 
    **Result**
-   ![image](https://github.com/user-attachments/assets/a9e95e86-8a6a-4cfd-a933-fe6647ada19d)
+   
+    <img src="https://github.com/user-attachments/assets/a9e95e86-8a6a-4cfd-a933-fe6647ada19d" alt="Case Study #4: Data Bank" width="200" height="80">
 
 5. For each month - how many Data Bank customers make more than 1 deposit and either 1 purchase or 1 withdrawal in a single month?
-6. What is the closing balance for each customer at the end of the month?
-7. What is the percentage of customers who increase their closing balance by more than 5%?
+   ```sql
+    WITH txn AS (
+    SELECT customer_id, 
+    	DATE_TRUNC('month',txn_date)::date AS month,
+    	SUM(CASE WHEN txn_type = 'deposit' THEN 1 ELSE 0 END) deposit, 
+    	SUM(CASE WHEN txn_type = 'purchase' THEN 1 ELSE 0 END) purchase,
+    	SUM(CASE WHEN txn_type = 'withdrawal' THEN 1 ELSE 0 END) withdrawal
+    	FROM data_bank.customer_transactions 
+    	GROUP BY customer_id, month
+    )
+    SELECT month, COUNT(DISTINCT customer_id) customer_cnt
+    FROM txn
+    WHERE deposit > 1
+    AND (purchase >= 1 OR withdrawal >=1)
+    GROUP BY month
+    ORDER BY month
+   ```
+
+   **Result**
+
+   <img src="https://github.com/user-attachments/assets/8e4af283-1d4c-4430-802c-d1bdd2d3627f" alt="Case Study #4: Data Bank" width="250" height="150">
+
+7. What is the closing balance for each customer at the end of the month?
+   ```sql
+   WITH txn AS (
+   SELECT
+     customer_id,
+     (DATE_TRUNC('month',txn_date)+interval '1 month'-interval '1 day')::date as monthend_date,
+     CASE WHEN txn_type = 'deposit' THEN txn_amount
+       ELSE -txn_amount
+       END as agg
+   FROM data_bank.customer_transactions
+   ),
+   dates AS (
+   SELECT * FROM
+   (SELECT DISTINCT monthend_date	FROM txn) CROSS JOIN
+   (SELECT DISTINCT customer_id FROM txn)
+   )
+   SELECT
+     d.monthend_date,
+     d.customer_id,
+     SUM(COALESCE(t.agg,0)) AS total_agg,
+     SUM(SUM(COALESCE(t.agg,0))) OVER (PARTITION BY d.customer_id ORDER BY d.monthend_date) AS balance
+   FROM dates d
+   LEFT JOIN txn t ON d.monthend_date = t.monthend_date AND d.customer_id = t.customer_id
+   GROUP BY d.monthend_date, d.customer_id
+   ORDER BY d.customer_id, d.monthend_date
+   ```
+
+   **Result**
+
+   <img src="https://github.com/user-attachments/assets/db58f649-c334-4ed6-ad31-7697bdd5fb6a" alt="Case Study #4: Data Bank" width="380" height="450">
+
+9. What is the percentage of customers who increase their closing balance by more than 5%?
+    ```sql
+    WITH txn AS (
+    SELECT
+      customer_id,
+      (DATE_TRUNC('month',txn_date)+interval '1 month'-interval '1 day')::date as monthend_date,
+      CASE WHEN txn_type = 'deposit' THEN txn_amount ELSE -txn_amount END as agg
+    FROM data_bank.customer_transactions
+    ),
+    balance AS (
+    SELECT
+      t.monthend_date,
+      t.customer_id,
+      SUM(COALESCE(t.agg,0)) AS total_agg,
+      SUM(
+        SUM(COALESCE(t.agg,0))
+      ) OVER (PARTITION BY t.customer_id ORDER BY t.monthend_date) AS ending_balance,
+      ROW_NUMBER() OVER(PARTITION BY t.customer_id ORDER BY t.monthend_date) rnk1,
+      ROW_NUMBER() OVER(PARTITION BY t.customer_id ORDER BY t.monthend_date DESC) rnk2
+    FROM txn t
+    GROUP BY t.monthend_date, t.customer_id
+    ),
+    opening_ending AS (
+    SELECT
+      *,
+      LAG(ending_balance) OVER(PARTITION BY customer_id ORDER BY monthend_date) opening_balance
+    FROM balance WHERE rnk1= 1 OR rnk2 = 1
+    ),
+    growth AS (
+    SELECT
+      customer_id,
+      opening_balance,
+      ending_balance,
+      ROUND((ending_balance-opening_balance)/ABS(opening_balance)*100,2) as growth
+    FROM opening_ending
+    WHERE opening_balance IS NOT NULL
+    )
+    SELECT
+      ROUND(
+        SUM(
+          CASE WHEN growth > 5 THEN 1
+          ELSE 0
+          END
+        )::decimal(10,2)/
+      COUNT(DISTINCT customer_id)*100,2) as percentage_cust
+    FROM growth
+    ```
+
+    **Result**
+
+   <img src="https://github.com/user-attachments/assets/61061466-8ba7-4b23-838f-43ef64936b51" alt="Case Study #4: Data Bank" width="150" height="70">
 
 ### Data Allocation Challenge
 To test out a few different hypotheses - the Data Bank team wants to run an experiment where different groups of customers would be allocated data using 3 different options:
