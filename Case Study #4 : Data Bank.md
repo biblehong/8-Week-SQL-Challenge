@@ -11,7 +11,6 @@
 - [Business Questions](#business-questions)
   - [Customer Nodes Exploration](#customer-nodes-exploration)
   - [Customer Transactions](#customer-transactions)
-  - [Data Allocation Challenge](#data-allocation-challenge)
 - [Conclusion](#conclusion)
 
 ## Introduction
@@ -231,15 +230,5 @@ Danny needs help needs help understanding the data, how to increase their custom
 
    <img src="https://github.com/user-attachments/assets/61061466-8ba7-4b23-838f-43ef64936b51" alt="Case Study #4: Data Bank" width="150" height="70">
 
-### Data Allocation Challenge
-To test out a few different hypotheses - the Data Bank team wants to run an experiment where different groups of customers would be allocated data using 3 different options:
-
-Option 1: data is allocated based off the amount of money at the end of the previous month
-Option 2: data is allocated on the average amount of money kept in the account in the previous 30 days
-Option 3: data is updated real-time
-For this multi-part challenge question - you have been requested to generate the following data elements to help the Data Bank team estimate how much data will need to be provisioned for each option:
-
-running customer balance column that includes the impact each transaction
-customer balance at the end of each month
-minimum, average and maximum values of the running balance for each customer
-Using all of the data available - how much data would have been required for each option on a monthly basis?
+### Conclusion
+There are 5 nodes that customers are being transferred to every 15 days on average. On average, customers make 5 transactions and deposit to the bank amounting to $508.61. About 33.4% of the whole customer base increased their initial deposit by 5% during their ending balance. This means that 66.6% have either made less than 5% or have gone more into debt (negatives!). Danny should review these customers to avoid hurtinig the bank's reserves any further.  
