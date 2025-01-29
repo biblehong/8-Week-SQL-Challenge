@@ -1,6 +1,6 @@
 # Case Study #5 : Data Mart
 
-<img src="https://github.com/user-attachments/assets/8c93087d-08b6-4c31-9eba-6447f97e48e7" alt="Case Study #5: Data Mart" width="300" height="300">
+<img src="https://github.com/user-attachments/assets/698c8ff2-1326-4c4d-b0c5-9f494fed32a5" alt="Case Study #5: Data Mart" width="300" height="300">
 
 > [!NOTE]
 > Dataset and images are all sourced from [#8WeekSQLChallenge](https://8weeksqlchallenge.com/)
