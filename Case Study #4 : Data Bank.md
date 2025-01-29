@@ -231,4 +231,4 @@ Danny needs help needs help understanding the data, how to increase their custom
    <img src="https://github.com/user-attachments/assets/61061466-8ba7-4b23-838f-43ef64936b51" alt="Case Study #4: Data Bank" width="150" height="70">
 
 ### Conclusion
-There are 5 nodes that customers are being transferred to every 15 days on average. On average, customers make 5 transactions and deposit to the bank amounting to $508.61. About 33.4% of the whole customer base increased their initial deposit by 5% during their ending balance. This means that 66.6% have either made less than 5% or have gone more into debt (negatives!). Danny should review these customers to avoid hurtinig the bank's reserves any further.  
+There are 5 nodes that customers are being transferred to every 15 days on average. On average, customers make 5 transactions and deposits to the bank amounting to $508.61. About 33.4% of the whole customer base increased their initial deposit by 5% during their ending balance. This means that 66.6% have either made less than 5% or have gone more into debt (negatives!). Danny should review these customers to avoid hurtinig the bank's reserves any further.  
