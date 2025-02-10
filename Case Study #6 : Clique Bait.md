@@ -9,9 +9,9 @@
 - [Introduction](#introduction)
 - [Table Relationship](#table-relationship)
 - [Business Questions](#business-questions)
-  - [Data Cleansing Steps](#data-cleansing-steps)
-  - [Data Exploration](#data-exploration)
-  - [Before & After Analysis](#before--after-analysis)
+  - [Digital Analysis](#digital-analysis)
+  - [Product Funnel Analysis](#product-funnel-analysis)
+  - [Campaigns Analysis](#campaigns-analysis)
 - [Conclusion](#conclusion)
 
 ## Introduction
