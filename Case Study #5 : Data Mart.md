@@ -234,12 +234,130 @@ In a single query, perform the following operations and generate a new table in 
 ### Before & After Analysis
 This technique is usually used when we inspect an important event and want to inspect the impact before and after a certain point in time.
 
-Taking the week_date value of 2020-06-15 as the baseline week where the Data Mart sustainable packaging changes came into effect.
+Taking the `week_date` value of `2020-06-15` as the baseline week where the Data Mart sustainable packaging changes came into effect.
 
-We would include all week_date values for 2020-06-15 as the start of the period after the change and the previous week_date values would be before
+We would include all `week_date` values for `2020-06-15` as the start of the period after the change and the previous `week_date` values would be before
 
 Using this analysis approach - answer the following questions:
 
-What is the total sales for the 4 weeks before and after 2020-06-15? What is the growth or reduction rate in actual values and percentage of sales?
-What about the entire 12 weeks before and after?
-How do the sale metrics for these 2 periods before and after compare with the previous years in 2018 and 2019?
+1. What is the total sales for the 4 weeks before and after `2020-06-15`? What is the growth or reduction rate in actual values and percentage of sales?
+   ```sql
+   WITH sales AS (
+   SELECT
+     calendar_year,
+     week_date,
+     SUM(sales) total_sales,
+     SUM(SUM(sales)) OVER (ORDER BY calendar_year, week_date ROWS BETWEEN 3 PRECEDING AND CURRENT ROW) AS four_wks_bef,
+     SUM(SUM(sales)) OVER (ORDER BY calendar_year, week_date ROWS BETWEEN CURRENT ROW AND 3 FOLLOWING) AS four_wks_aft
+   FROM data_mart.clean_weekly_sales
+   GROUP BY calendar_year, week_date
+   ),
+   week_sales AS (
+   SELECT
+     calendar_year,
+     week_date,
+     LAG(four_wks_bef) OVER(ORDER BY calendar_year, week_date) AS four_wks_bef_chg,
+     four_wks_aft AS four_wks_aft_chg
+   FROM sales
+   )
+   SELECT
+     calendar_year,
+     four_wks_aft_chg-four_wks_bef_chg AS four_wks_variance,
+     ROUND((four_wks_aft_chg-four_wks_bef_chg)/four_wks_bef_chg*100,2) AS four_wks_variance_pctg
+   FROM week_sales
+   WHERE week_date = '2020-06-15'
+   ```
+
+   **Result**
+   
+   <img src="https://github.com/user-attachments/assets/c1cb86fa-0e71-41c7-b182-fb432e0ae5ce" alt="Case Study #5: Data Mart" width="500" height="80">
+
+   - After implementing the change in packing, it has been observed that there is a decrease of $26,884,188 or 1.15% within a 4-week period. This change may be impacted by factors such as packaging inconvenience to the customers and customer unfamiliarity to the new packaging brought by poor marketing. 
+
+2. What about the entire 12 weeks before and after?
+   ```sql
+   WITH sales AS (
+   SELECT
+     calendar_year,
+     week_date,
+     SUM(sales) total_sales,
+     SUM(SUM(sales)) OVER (ORDER BY calendar_year, week_date ROWS BETWEEN 11 PRECEDING AND CURRENT ROW) AS twelve_wks_bef,
+     SUM(SUM(sales)) OVER (ORDER BY calendar_year, week_date ROWS BETWEEN CURRENT ROW AND 11 FOLLOWING) AS twelve_wks_aft
+   FROM data_mart.clean_weekly_sales
+   GROUP BY  calendar_year, week_date
+   ),
+   week_sales AS (
+   SELECT
+     calendar_year,
+     week_date,
+     LAG(twelve_wks_bef) OVER(ORDER BY calendar_year, week_date) AS twelve_wks_bef_chg,
+     twelve_wks_aft AS twelve_wks_aft_chg
+   FROM sales
+   )
+   SELECT
+     calendar_year,
+     twelve_wks_aft_chg-twelve_wks_bef_chg as twelve_wks_variance,
+     ROUND((twelve_wks_aft_chg-twelve_wks_bef_chg)/twelve_wks_bef_chg*100,2) as twelve_wks_variance_pctg
+   FROM week_sales
+   WHERE week_date = '2020-06-15'
+   ```
+
+   **Result**
+   
+   <img src="https://github.com/user-attachments/assets/623edfd7-6046-4962-b98f-ce4956a4ceeb" alt="Case Study #5: Data Mart" width="500" height="80">
+
+   - Sales decline of 2.14% is further observed in a 12-week period. Danny needs to understand what is causing this decline in sales through methods such surveys.
+
+3. How do the sale metrics for these 2 periods before and after compare with the previous years in 2018 and 2019?
+   ```sql
+   WITH sales AS (
+   SELECT
+     calendar_year,
+     week_date,
+     SUM(sales) total_sales,
+     SUM(SUM(sales)) OVER (ORDER BY calendar_year, week_date ROWS BETWEEN 3 PRECEDING AND CURRENT ROW) AS four_wks_bef,
+     SUM(SUM(sales)) OVER (ORDER BY calendar_year, week_date ROWS BETWEEN CURRENT ROW AND 3 FOLLOWING) AS four_wks_aft,
+     SUM(SUM(sales)) OVER (ORDER BY calendar_year, week_date ROWS BETWEEN 11 PRECEDING AND CURRENT ROW) AS twelve_wks_bef,
+     SUM(SUM(sales)) OVER (ORDER BY calendar_year, week_date ROWS BETWEEN CURRENT ROW AND 11 FOLLOWING) AS twelve_wks_aft
+   FROM data_mart.clean_weekly_sales
+   GROUP BY  calendar_year, week_date
+   ),
+   week_sales AS (
+   SELECT
+     calendar_year,
+     week_date,
+     LAG(four_wks_bef) OVER(ORDER BY calendar_year, week_date) AS four_wks_bef_chg,
+     four_wks_aft AS four_wks_aft_chg,
+     LAG(twelve_wks_bef) OVER(ORDER BY calendar_year, week_date) AS twelve_wks_bef_chg,
+     twelve_wks_aft AS twelve_wks_aft_chg
+   FROM sales
+   )
+   SELECT
+     calendar_year,
+     four_wks_aft_chg-four_wks_bef_chg as four_wks_variance,
+     ROUND((four_wks_aft_chg-four_wks_bef_chg)/four_wks_bef_chg*100,2) as four_wks_variance_pctg,
+     twelve_wks_aft_chg-twelve_wks_bef_chg as twelve_wks_variance,
+     ROUND((twelve_wks_aft_chg-twelve_wks_bef_chg)/twelve_wks_bef_chg*100,2) as twelve_wks_variance_pctg
+   FROM week_sales
+   WHERE text(week_date) like '20%-06-1%'
+   ORDER BY extract(day FROM week_date) DESC, calendar_year
+   LIMIT 3
+   ```
+
+   **Result**
+
+   <img src="https://github.com/user-attachments/assets/e7e93ce8-a0e2-431a-9eb0-52f329319d5d" alt="Case Study #5: Data Mart" width="800" height="120">
+
+   - On a 4-week period, we can observe a stable variance in 2018 and 2019 for the same period when the packaging was changed. However, we can observe a substantial decline in 2020 making it evident that the change in packaging is not well embraced by the customers.
+   - On a 12-week period, 2018 is the best year with an increase of 1.63% increase from before and after period. We can observe a small decline of 0.3% in 2019, a notable decline after performing well in the past year. However, 2020 has shown the biggest drop at 2.14% which is an alarming rate right after the packaging change. Danny needs to implement measures to understand the cause of this decline and take the necessary actions immediately.
+  
+## Conclusion
+2018 and 2019 has shown a stable variance in a 4-week period. 2020 on the other hand, has shown a decline of 1.15% after the packaging has been replaced, initially suggesting that the packaging replacement could be the cause. On a 12-week period, it can be observed that 2018 has the best performance followed by 2019. Although the YoY trend shows a decline overall, 2020 has been the biggest drop after replacing the packaging. This could indicate several factors such as customer unfamiliarity to the products due to poor marketing of the new packaging or inconvenience of the new packaging for the customers. 
+
+This hypothesis can be further solidified by conducting surveys in order to get a better understanding of the situation from the customer perspective and to rule out any other factors such as pandemic or recession. Considering that 2019 performance on a 12-week period has also shown a substantial decline from 2018, it is possible that the decline may not solely be influenced by the packaging change.  
+
+
+
+
+
+
