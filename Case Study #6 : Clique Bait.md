@@ -283,9 +283,11 @@ ORDER BY product_category
 Use your 2 new output tables - answer the following questions:
 
 1. Which product had the most views, cart adds and purchases?
+
 - Oyster was the most viewed item while Lobster was the most added to cart and purchased product.
   
 2. Which product was most likely to be abandoned?
+
 - Russian Caviar was the most abandoned product.
   
 3. Which product had the highest view to purchase percentage?
@@ -357,12 +359,47 @@ Generate a table that has 1 single row for every unique visit_id record and has 
 - `impression`: count of ad impressions for each visit
 - `click`: count of ad clicks for each visit
 - (Optional column) `cart_products`: a comma separated text value with products added to the cart sorted by the order they were added to the cart (hint: use the `sequence_number`)
+  ```sql
+  SELECT
+    u.user_id,
+	  e.visit_id,
+	  MIN(e.event_time) as visit_start_time,
+	  SUM(CASE WHEN ei.event_name = 'Page View' THEN 1 ELSE 0 END) page_views,
+	  SUM(CASE WHEN ei.event_name = 'Add to Cart' THEN 1 ELSE 0 END) cart_adds,
+	  SUM(CASE WHEN ei.event_name = 'Purchase' THEN 1 ELSE 0 END) purchase,
+	  COALESCE(
+      (
+      SELECT campaign_name
+      FROM clique_bait.campaign_identifier
+      WHERE start_date <= MIN(e.event_time)
+      AND end_date >= MIN(e.event_time)
+      )
+    ,'N/A') campaign_name,
+	  SUM(CASE WHEN ei.event_name = 'Ad Impression' THEN 1 ELSE 0 END) impression,
+	  SUM(CASE WHEN ei.event_name = 'Ad Click' THEN 1 ELSE 0 END) click,
+	  COALESCE(
+      STRING_AGG(
+        CASE WHEN ei.event_name = 'Add to Cart' THEN ph.page_name
+        ELSE NULL
+        END
+      ,', ' ORDER BY e.sequence_number)
+    ,'N/A') cart_products
+  FROM clique_bait.events e
+	JOIN clique_bait.users u ON e.cookie_id = u.cookie_id
+  JOIN clique_bait.event_identifier ei ON e.event_type = ei.event_type
+  JOIN clique_bait.page_hierarchy ph ON e.page_id = ph.page_id
+  GROUP BY u.user_id, e.visit_id
+	ORDER BY e.visit_id
+  ```
+
+  **Result**
+  <img src="https://github.com/user-attachments/assets/7051d36a-1707-443a-a775-334a6a60622e" alt="Case Study #6: Clique Bait" width="1200" height="250">
 
 Use the subsequent dataset to generate at least 5 insights for the Clique Bait team - bonus: prepare a single A4 infographic that the team can use for their management reporting sessions, be sure to emphasise the most important points from your findings.
 
 Some ideas you might want to investigate further include:
 
-Identifying users who have received impressions during each campaign period and comparing each metric with other users who did not have an impression event
-Does clicking on an impression lead to higher purchase rates?
-What is the uplift in purchase rate when comparing users who click on a campaign impression versus users who do not receive an impression? What if we compare them with users who just an impression but do not click?
-What metrics can you use to quantify the success or failure of each campaign compared to eachother?
+- Identifying users who have received impressions during each campaign period and comparing each metric with other users who did not have an impression event
+- Does clicking on an impression lead to higher purchase rates?
+- What is the uplift in purchase rate when comparing users who click on a campaign impression versus users who do not receive an impression? What if we compare them with users who just an impression but do not click?
+- What metrics can you use to quantify the success or failure of each campaign compared to eachother?
