@@ -406,7 +406,7 @@ About 61% of those who viewed items on the website subsequently added the items 
 
 Additional Insights:
 
-<img src="https://github.com/user-attachments/assets/d5996d1c-1914-45ad-98f3-7e3abd64221e" alt="Case Study #6: Clique Bait" width="600" height="250">
+<img src="https://github.com/user-attachments/assets/d5996d1c-1914-45ad-98f3-7e3abd64221e" alt="Case Study #6: Clique Bait" width="400" height="180">
 
 The image shows that about 75% of the total visits did not start from an ad impression. 29% of the total visits that resulted in a purchase also did not start from an ad impression. This could mean that majority of repeated customers, referrals or new customers were going directly to the website. However, if we observe only those who have received an ad impression, they had a higher chance of converting into a sale, especially those who clicked the ad. This could prove that the ads were effectively attracting new customers based on the ad marketing content. 
 
