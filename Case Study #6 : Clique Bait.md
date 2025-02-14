@@ -385,11 +385,11 @@ Generate a table that has 1 single row for every unique visit_id record and has 
       ,', ' ORDER BY e.sequence_number)
     ,'N/A') cart_products
   FROM clique_bait.events e
-	JOIN clique_bait.users u ON e.cookie_id = u.cookie_id
+  JOIN clique_bait.users u ON e.cookie_id = u.cookie_id
   JOIN clique_bait.event_identifier ei ON e.event_type = ei.event_type
   JOIN clique_bait.page_hierarchy ph ON e.page_id = ph.page_id
   GROUP BY u.user_id, e.visit_id
-	ORDER BY e.visit_id
+  ORDER BY e.visit_id
   ```
 
   **Result**
