@@ -408,7 +408,7 @@ Additional Insights:
 
 <img src="https://github.com/user-attachments/assets/d5996d1c-1914-45ad-98f3-7e3abd64221e" alt="Case Study #6: Clique Bait" width="400" height="180">
 
-The image shows that about 75% of the total visits did not start from an ad impression. 29% of the total visits that resulted in a purchase also did not start from an ad impression. This could mean that majority of repeated customers, referrals or new customers were going directly to the website. However, if we observe only those who have received an ad impression, they had a higher chance of converting into a sale, especially those who clicked the ad. This could prove that the ads were effectively attracting new customers based on the ad marketing content. 
+The image shows that about 75% of the total visits did not start from an ad impression. 29% of the total visits that resulted in a purchase also did not start from an ad impression. This could mean that majority of repeated customers, referrals or new customers were going directly to the website. However, if we observe only those that have received an ad impression, we can see that this group had a higher chance of converting into a sale, especially those who clicked the ad. This could prove that the ads were effectively attracting new customers based on the ad marketing content. 
 
 In summary, the visits that were from impressions were likely to convert into a sale rather than those that were going directly to the website. Marketing team has done a good job attracting new customers with their marketing ad, resulting in a strong conversion rate in this area.
 
