@@ -393,13 +393,27 @@ Generate a table that has 1 single row for every unique visit_id record and has 
   ```
 
   **Result**
-  <img src="https://github.com/user-attachments/assets/7051d36a-1707-443a-a775-334a6a60622e" alt="Case Study #6: Clique Bait" width="1200" height="250">
+  
+  <img src="https://github.com/user-attachments/assets/7051d36a-1707-443a-a775-334a6a60622e" alt="Case Study #6: Clique Bait" width="1200" height="230">
 
-Use the subsequent dataset to generate at least 5 insights for the Clique Bait team - bonus: prepare a single A4 infographic that the team can use for their management reporting sessions, be sure to emphasise the most important points from your findings.
+## Conclusion
 
-Some ideas you might want to investigate further include:
+February had the most number of visits in the history of Clique Bait online store. About 49.86% of the total visits resulted into a purchase, which was quite low and may need some digging up to see if there's any area Danny can improve to increase sales. 
 
-- Identifying users who have received impressions during each campaign period and comparing each metric with other users who did not have an impression event
-- Does clicking on an impression lead to higher purchase rates?
-- What is the uplift in purchase rate when comparing users who click on a campaign impression versus users who do not receive an impression? What if we compare them with users who just an impression but do not click?
-- What metrics can you use to quantify the success or failure of each campaign compared to eachother?
+Shellfish was the most popular category that customers viewed, added to cart and purchased, with Lobster being the most bought item among all the products. Russian Caviar was the most abandoned item despite having a high view and add to cart numbers. This could mean that customers were changing their mind mid-purchase which can be due to item price or item quantity. Danny should start thinking about running campaigns on least favorite items to boost their sales. 
+
+About 61% of those who viewed items on the website subsequently added the items to the cart and about 76% of these were converted into a sale. 
+
+Additional Insights:
+
+<img src="https://github.com/user-attachments/assets/d5996d1c-1914-45ad-98f3-7e3abd64221e" alt="Case Study #6: Clique Bait" width="600" height="250">
+
+The image shows that about 75% of the total visits did not start from an ad impression. 29% of the total visits that resulted in a purchase also did not start from an ad impression. This could mean that majority of repeated customers, referrals or new customers were going directly to the website. However, if we observe only those who have received an ad impression, they had a higher chance of converting into a sale, especially those who clicked the ad. This could prove that the ads were effectively attracting new customers based on the ad marketing content. 
+
+In summary, the visits that were from impressions were likely to convert into a sale rather than those that were going directly to the website. Marketing team has done a good job attracting new customers with their marketing ad, resulting in a strong conversion rate in this area.
+
+<img src="https://github.com/user-attachments/assets/49789251-125b-4d2e-ae0b-def703f8643e" alt="Case Study #6: Clique Bait" width="400" height="220">
+
+The half off campaign on shellfish saw the most visits that ended in a sale in all the campaign periods, proving once again that shellfish is the most popular category in the online store. However, if we look closely at each campaign's conversion rate, the 3 campaigns displayed relatively close rates with the 25% off campaign taking the win at 50%. A 50% conversion rate during a campaign period seems rather low seeing that the no campaign period resulted in a 52% conversion rate. 
+
+Marketing team may have done a good job at attracting customers with their marketing ad but on campaign period perspective, it seems there is a need to revisit the terms and other aspects such as system issue that may result to payment failure, or purchase terms such as 25% off only on selected items etc. in order to improve the campaign strategy of each category. In addition, a campaign that would promote cross selling and leverage the popularity of shellfish may boost the sales of other items in other categories (e.g. Buy 1 Salmon, Get 1 Oyster for 20% Off).
