@@ -388,3 +388,6 @@ WITH RECURSIVE prod_details AS (
 ```
 
 ### Conclusion
+Balanced Tree Clothing Co. observed a 60/40 transaction split between members and non-members. Although members were likely to generate more transactions, the average revenue from members and non-members were roughly the same at $515. 
+
+Shirts, particularly Blue Polo Shirts, generated the most gross income. The store generated more revenue from men despite having roughly the same transactions with women, indicating that men's clothes were priced higher than women's.
