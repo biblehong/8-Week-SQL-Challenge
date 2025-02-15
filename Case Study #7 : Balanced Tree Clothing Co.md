@@ -20,7 +20,7 @@ Danny, Balanced Tree Clothing's CEO, is requesting assistance for their merchand
 
 ## Table Relationship
 
-<img src="https://github.com/user-attachments/assets/beab9bb1-7f44-48a9-a777-ad8789f2f96b" alt="Case Study #7: Balanced Tree Clothing Co." width="650" height="400">
+<img src="https://github.com/user-attachments/assets/beab9bb1-7f44-48a9-a777-ad8789f2f96b" alt="Case Study #7: Balanced Tree Clothing Co." width="1050" height="400">
 
 ## Business Questions
 ### High Level Sales Analysis
