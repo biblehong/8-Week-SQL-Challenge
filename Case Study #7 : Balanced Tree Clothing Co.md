@@ -12,6 +12,7 @@
   - [High Level Sales Analysis](#high-level-sales-analysis)
   - [Transaction Analysis](#transaction-analysis)
   - [Product Analysis](#product-analysis)
+- [Bonus Challenge](#bonus-challenge)
 - [Conclusion](#conclusion)
 
 ## Introduction
@@ -351,5 +352,39 @@ Danny, Balanced Tree Clothing's CEO, is requesting assistance for their merchand
 
 ### Bonus Challenge
 Use a single SQL query to transform the product_hierarchy and product_prices datasets to the product_details table.
+```sql
+WITH RECURSIVE prod_details AS (
+  SELECT
+    ph.id,
+    ph.level_name,
+    CAST(id AS VARCHAR(10)) as name_id,
+    CAST(ph.level_text AS VARCHAR(100)) as name_path
+  FROM balanced_tree.product_hierarchy ph
+  WHERE parent_id IS NULL
 
-Hint: you may want to consider using a recursive CTE to solve this problem!
+  UNION ALL
+
+  SELECT
+    ph.id,
+    ph.level_name,
+    CAST(pd.name_id || ', ' || CAST(ph.id AS VARCHAR(10)) AS VARCHAR(10))as name_id,
+    CAST(pd.name_path || ', ' || CAST(ph.level_text AS VARCHAR(100)) AS VARCHAR(100)) as name_path
+  FROM balanced_tree.product_hierarchy ph
+  JOIN prod_details pd ON ph.parent_id = pd.id
+  )
+  SELECT
+    pp.product_id,
+    pp.price,
+    (SPLIT_PART(pd.name_path,', ',3) || ' ' || SPLIT_PART(pd.name_path,', ',2) || ' - ' || SPLIT_PART(pd.name_path,', ',1))::varchar(32) as product_name,
+    SPLIT_PART(pd.name_id,', ',1)::integer as category_id,
+    SPLIT_PART(pd.name_id,', ',2)::integer as segment_id,
+    SPLIT_PART(pd.name_id,', ',3)::integer as style_id,
+    SPLIT_PART(pd.name_path,', ',1)::varchar(6) as category_name,
+    SPLIT_PART(pd.name_path,', ',2)::varchar(6) as segment_name,
+    SPLIT_PART(pd.name_path,', ',3)::varchar(19) as style_name
+  FROM prod_details pd
+  JOIN balanced_tree.product_prices pp on pd.id = pp.id
+  WHERE level_name = 'Style'
+```
+
+### Conclusion
