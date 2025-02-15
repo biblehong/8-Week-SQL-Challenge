@@ -27,7 +27,7 @@ Danny has asked for your assistance to analyse aggregated metrics for an example
 
 ## Table Relationship
 
-<img src="https://github.com/user-attachments/assets/70f807ff-82ff-466d-994d-280a0fee76f7" alt="Case Study #8: Fresh Segments" width="1050" height="400">
+<img src="https://github.com/user-attachments/assets/70f807ff-82ff-466d-994d-280a0fee76f7" alt="Case Study #8: Fresh Segments" width="500" height="400">
 
 ## Business Questions
 
