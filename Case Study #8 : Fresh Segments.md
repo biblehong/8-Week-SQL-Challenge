@@ -1,6 +1,6 @@
 # Case Study #8 : Fresh Segments
 
-<img src="https://github.com/user-attachments/assets/f8730253-aac0-4280-859c-f01e34ae7291" alt="Case Study #8: Fresh Segments" width="300" height="300">
+<img src="https://github.com/user-attachments/assets/8306c5ce-b4f8-44ef-b4b6-b420b977edc1" alt="Case Study #8: Fresh Segments" width="300" height="300">
 
 > [!NOTE]
 > Dataset and images are all sourced from [#8WeekSQLChallenge](https://8weeksqlchallenge.com/)
