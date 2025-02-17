@@ -398,9 +398,9 @@ Generate a table that has 1 single row for every unique visit_id record and has 
 
 ## Conclusion
 
-February had the most number of visits in the history of Clique Bait online store. About 49.86% of the total visits resulted into a purchase, which was quite low and may need some digging up to see if there's any area Danny can improve to increase sales. 
+February has the most number of visits in the history of Clique Bait online store. About 49.86% of the total visits resulted in a purchase, which is quite low and may need some digging up to see if there's any area Danny can improve to increase sales. 
 
-Shellfish was the most popular category that customers viewed, added to cart and purchased, with Lobster being the most bought item among all the products. Russian Caviar was the most abandoned item despite having a high view and add to cart numbers. This could mean that customers were changing their mind mid-purchase which can be due to item price or item quantity. Danny should start thinking about running campaigns on least favorite items to boost their sales. 
+Shellfish is the most popular category that customers viewed, added to cart and purchased, with Lobster being the most bought item among all the products. Russian Caviar is the most abandoned item despite having high view and add to cart numbers. This could mean that customers were changing their minds mid-purchase which can be due to item price or item quantity. Danny should start thinking about running campaigns on the least favorite items to boost their sales. 
 
 About 61% of those who viewed items on the website subsequently added the items to the cart and about 76% of these were converted into a sale. 
 
@@ -416,4 +416,4 @@ In summary, the visits that were from impressions were likely to convert into a 
 
 The half off campaign on shellfish saw the most visits that ended in a sale in all the campaign periods, proving once again that shellfish is the most popular category in the online store. However, if we look closely at each campaign's conversion rate, the 3 campaigns displayed relatively close rates with the 25% off campaign taking the win at 50%. A 50% conversion rate during a campaign period seems rather low seeing that the no campaign period resulted in a 52% conversion rate. 
 
-Marketing team may have done a good job at attracting customers with their marketing ad but on campaign period perspective, it seems there is a need to revisit the terms and other aspects such as system issue that may result to payment failure, or purchase terms such as 25% off only on selected items etc. in order to improve the campaign strategy of each category. In addition, a campaign that would promote cross selling and leverage the popularity of shellfish may boost the sales of other items in other categories (e.g. Buy 1 Salmon, Get 1 Oyster for 20% Off).
+Marketing team may have done a good job at attracting customers with their marketing ad but from a campaign period perspective, it seems there is a need to revisit the terms and other aspects such as system issues that may result to payment failure, or purchase terms such as 25% off only on selected items etc. in order to improve the campaign strategy of each category. In addition, a campaign that would promote cross selling and leverage the popularity of shellfish may boost the sales of other items in other categories (e.g. Buy 1 Salmon, Get 1 Oyster for 20% Off).
